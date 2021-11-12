@@ -1,13 +1,14 @@
 import React from 'react';
 import styles from './VideoPlayer.module.scss'
-import {VideoPlayerState} from "./VideoPlayer.model";
+import {VideoPlayerProps, VideoPlayerState} from "./VideoPlayer.model";
+import ReactPlayer from "react-player";
 
-class VideoPlayer extends React.Component<any, VideoPlayerState> {
+class VideoPlayer extends React.Component<VideoPlayerProps, VideoPlayerState> {
 
     private readonly _heightMargin = 110;
     private readonly _widthMargin = 100;
 
-    constructor(props: any) {
+    constructor(props: VideoPlayerProps) {
         super(props);
         this.state = this.createState();
         this.setPlayerDimension();
@@ -41,19 +42,15 @@ class VideoPlayer extends React.Component<any, VideoPlayerState> {
     render() {
         return (
             <div className={styles.Main}>
-                <video
-                    className="video-js"
-                    controls
-                    preload="auto"
-                    poster="https://asc-csa.gc.ca/images/recherche/hi-res/fe3dcb35-bf4a-4f05-bd73-508b3974b6b8.jpg"
-                    data-setup="{}"
+                <ReactPlayer className={styles.Player}
+                    url={this.props.uri}
                     height={this.state.playerHeight}
                     width={this.state.playerWidth}
-                >
-                    <source
-                        src="http://data.phys.ucalgary.ca/sort_by_project/AuroraMAX/rt-movies/mp4/2021/11/04/auroramaxHD_20211104_720p.mp4"
-                        type="video/mp4"/>
-                </video>
+                    controls
+                    playing
+                    loop
+                    muted
+                />
             </div>
         );
     }
