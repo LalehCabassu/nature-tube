@@ -1,0 +1,48 @@
+.Menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: #b096e8;
+  padding: 0.7rem;
+  border-radius: 2.5%;
+}
+
+.Active {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: #b096e8;
+  position: absolute;
+  top: 5rem;
+  left: -100rem;
+  width: 5.7rem;
+  padding: 1rem 1rem 0.3rem 1rem;
+  animation: slide-in 0.5s forwards;
+  border-radius: 2.5%;
+
+  a {
+    padding-bottom: 0.2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+  }
+
+  @keyframes slide-in {
+    100% {
+      left: 2.5rem;
+    }
+  }
+}
+
+.Inactive {
+  display: none;
+}
+
+.burger .burger-lines,
+.burger .burger-lines:after,
+.burger .burger-lines:before {
+  background-color: darkgreen;
+}

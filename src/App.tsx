@@ -1,25 +1,41 @@
-import logo from './assets/images/aurora-borealis.png';
 import styles from './App.module.scss';
-import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 import React from "react";
+import Play from "./pages/Play/Play";
+import Header from "./components/Header/Header";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {ROUTES} from "./App.model";
+import Home from "./pages/Home/Home";
+import Add from "./pages/Add/Add";
+import Pick from "./pages/Pick/Pick";
+import About from "./pages/About/About";
 
 class App extends React.Component {
 
-    private readonly _title = "NatureTube";
-
     render() {
-        const sourceUri = "http://data.phys.ucalgary.ca/sort_by_project/AuroraMAX/rt-movies/mp4/2021/11/04/auroramaxHD_20211104_720p.mp4";
-        // const sourceUri = "videos/20211010_155936.mp4";
-        // const sourceUri = "https://www.youtube.com/watch?v=fk5PWZIATvU";
         return (
-            <div className={styles.App}>
-                <header className={styles.AppHeader}>
-                    <img src={logo} alt={this._title}/>
-                    <div>{this._title}</div>
-                </header>
-                <div className={styles.AppContent}>
-                    <VideoPlayer uri={sourceUri} />
-                </div>
+            <div>
+                <BrowserRouter>
+                    <Header/>
+                    <div className={styles.AppContent}>
+                        <Switch>
+                            <Route exact path={ROUTES.home}>
+                                <Home/>
+                            </Route>
+                            <Route path={ROUTES.add}>
+                                <Add/>
+                            </Route>
+                            <Route path={ROUTES.pick}>
+                                <Pick/>
+                            </Route>
+                            <Route path={ROUTES.play}>
+                                <Play/>
+                            </Route>
+                            <Route path={ROUTES.about}>
+                                <About/>
+                            </Route>
+                        </Switch>
+                    </div>
+                </BrowserRouter>
             </div>
         );
     }
