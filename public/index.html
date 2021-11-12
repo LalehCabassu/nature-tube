@@ -5,6 +5,9 @@
     <link href="%PUBLIC_URL%/../src/assets/images/aurora-borealis.png" rel="icon"/>
     <title>NatureTube</title>
 </head>
+<script>
+    if (!crossOriginIsolated) SharedArrayBuffer = ArrayBuffer;
+</script>
 <body>
 <div id="root"></div>
 </body>
