@@ -8,6 +8,12 @@
   border-radius: 2.5%;
 }
 
+.burger .burger-lines,
+.burger .burger-lines:after,
+.burger .burger-lines:before {
+  background-color: darkgreen;
+}
+
 .Active {
   display: flex;
   flex-direction: column;
@@ -39,10 +45,4 @@
 
 .Inactive {
   display: none;
-}
-
-.burger .burger-lines,
-.burger .burger-lines:after,
-.burger .burger-lines:before {
-  background-color: darkgreen;
 }

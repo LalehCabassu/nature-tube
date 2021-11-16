@@ -3,39 +3,57 @@ import '@animated-burgers/burger-squeeze/dist/styles.css';
 import React from 'react';
 import styles from './Menu.module.scss';
 import {MenuState} from "./Menu.model";
-import {ROUTES} from "../../App.model";
+import {MenuContext, ROUTES} from "../../App.model";
 
 class Menu extends React.Component<any, MenuState> {
 
+    static contextType = MenuContext;
+
     constructor(props: any) {
         super(props);
-        this.state = this.createState(false);
-        this.flipState = this.flipState.bind(this);
+        // console.log(menuOpen);
+        // this.state = this.createState(menuOpen);
+        // this.flipState = this.flipState.bind(this);
     }
 
-    createState(isOpen: boolean) {
-        return {
-            isOpen: isOpen
-        }
-    }
+    // createState(isOpen: boolean) {
+    //     return {
+    //         isOpen: isOpen
+    //     }
+    // }
 
-    flipState() {
-        this.setState((state) => {
-            return this.createState(!state.isOpen)
-        });
-    }
+    // flipState() {
+    //     // console.log('in flipState')
+    //     // this.menuService.flipMenu();
+    //     this.setState(() => {
+    //         return this.createState(this.context);
+    //     });
+    // }
 
     render() {
-        const menuClassName = this.state.isOpen ? styles.Active : styles.Inactive;
+        console.log('render: ', this.context)
+        // const menuOpen = this.context;
+        // const menuClassName = ;
+        // console.log(menuClassName)
         return (
-            <div className={styles.Menu} >
-                <Burger isOpen={this.state.isOpen} onClick={this.flipState} />
-                <div className={menuClassName}>
-                    <a href={ROUTES.play}>Play</a>
-                    <a href={ROUTES.pick}>Pick</a>
-                    <a href={ROUTES.add}>Add</a>
-                </div>
-            </div>
+            <MenuContext.Consumer>
+                {({open, toggleMenu}) => (
+                    <div className={styles.Menu} >
+                        <Burger isOpen={open} onClick={toggleMenu} />
+                        <div className= {open ? styles.Active : styles.Inactive} >
+                            <div>
+                                <a href={ROUTES.play}>Play</a>
+                            </div>
+                            <div>
+                                <a href={ROUTES.pick}>Pick</a>
+                            </div>
+                            <div>
+                                <a href={ROUTES.add}>Add</a>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </MenuContext.Consumer>
         );
     }
 }

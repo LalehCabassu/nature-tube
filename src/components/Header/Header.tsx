@@ -9,11 +9,15 @@ class Header extends React.Component<any, any> {
 
     private readonly _title = "NatureTube";
 
+    logoOnClick() {
+        document.location.href = ROUTES.home;
+    }
+
     render() {
         return (
             <header className={styles.Header}>
                 <Menu />
-                <div className={styles.Logo}>
+                <div className={styles.Logo} onClick={this.logoOnClick}>
                     <img src={logo} alt={this._title}/>
                     <h1>{this._title}</h1>
                 </div>
