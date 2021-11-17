@@ -4,6 +4,7 @@ import React from 'react';
 import styles from './Menu.module.scss';
 import {MenuState} from "./Menu.model";
 import {ROUTES} from "../../App.model";
+import {Link} from 'react-router-dom';
 
 class Menu extends React.Component<any, MenuState> {
 
@@ -28,14 +29,15 @@ class Menu extends React.Component<any, MenuState> {
     render() {
         const menuClassName = this.state.isOpen ? styles.Active : styles.Inactive;
         return (
-            <div className={styles.Menu} >
+            <nav className={styles.Menu} role="menu" aria-label="main menu">
                 <Burger isOpen={this.state.isOpen} onClick={this.flipState} />
                 <div className={menuClassName}>
-                    <a href={ROUTES.play}>Play</a>
-                    <a href={ROUTES.pick}>Pick</a>
-                    <a href={ROUTES.add}>Add</a>
+                    <Link to={ROUTES.play}>play</Link>
+                    <Link to={ROUTES.pick}>pick</Link>
+                    <Link to={ROUTES.add}>add</Link>
+                    <Link to={ROUTES.about}>about</Link>
                 </div>
-            </div>
+            </nav>
         );
     }
 }

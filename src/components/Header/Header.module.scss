@@ -3,8 +3,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem;
-  margin: 0 0 0 1rem;
+  padding: 1rem 1.5rem 1rem 2.5rem;
 }
 
 .Logo {
@@ -13,23 +12,16 @@
   justify-content: flex-start;
   align-items: center;
 
-  h1 {
-    font-size: 3rem;
+  a {
+    font-size: 5rem;
     font-weight: bold;
-    margin: 0;
+    padding: 1rem;
     color: #b096e8;
+    text-decoration: none;
   }
 
   img {
-    height: 3rem;
-    margin: 0 1rem 1rem 0;
+    height: 5rem;
     border-radius: 30rem;
   }
-}
-
-.About {
-  font-size: 1.75rem;
-  font-weight: bold;
-  color: #b096e8;
-  text-decoration: none;
 }

@@ -1,7 +1,22 @@
+@font-face {
+  font-family: Wildcrazy;
+  src: url(/assets/fonts/Wildcrazy-WKYO.ttf);
+}
+
+@font-face {
+  font-family: Veggy;
+  src: url(/assets/fonts/VeggyPersonalUseSemiExpandedMedium-1GMov.ttf);
+}
+
+@font-face {
+  font-family: CutiePatootie;
+  src: url(/assets/fonts/CutiePatootie-Rgjv.ttf);
+}
+
 html {
   background: black 80%;
   color: whitesmoke;
-  font-family: Papyrus;
+  font-family: CutiePatootie;
 }
 
 body {

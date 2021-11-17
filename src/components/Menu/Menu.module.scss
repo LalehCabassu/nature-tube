@@ -12,19 +12,20 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   background-color: #b096e8;
   position: absolute;
-  top: 5rem;
-  left: -100rem;
-  width: 5.7rem;
-  padding: 1rem 1rem 0.3rem 1rem;
-  animation: slide-in 0.5s forwards;
-  border-radius: 2.5%;
+  top: 6.5rem;
+  right: -100rem;
+  width: 8rem;
+  padding: 1rem;
+  animation: slide-in 0s forwards;
+  border-radius: 1%;
+  z-index: 10;
 
   a {
-    padding-bottom: 0.2rem;
-    font-size: 1.2rem;
+    padding: 1rem 0.5rem 1rem 0.5rem;
+    font-size: 2rem;
     font-weight: bold;
     text-decoration: none;
     color: white;
@@ -32,17 +33,11 @@
 
   @keyframes slide-in {
     100% {
-      left: 2.5rem;
+      right: 1.5rem;
     }
   }
 }
 
 .Inactive {
   display: none;
-}
-
-.burger .burger-lines,
-.burger .burger-lines:after,
-.burger .burger-lines:before {
-  background-color: darkgreen;
 }
