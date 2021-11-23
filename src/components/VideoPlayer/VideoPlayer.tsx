@@ -5,7 +5,7 @@ import ReactPlayer from "react-player";
 
 class VideoPlayer extends React.Component<VideoPlayerProps, VideoPlayerState> {
 
-    private readonly _heightMargin = 180;
+    private readonly _heightMargin = 210;
     private readonly _widthMargin = 100;
 
     constructor(props: VideoPlayerProps) {
@@ -41,8 +41,8 @@ class VideoPlayer extends React.Component<VideoPlayerProps, VideoPlayerState> {
 
     render() {
         return (
-            <div className={styles.Main}>
-                <ReactPlayer className={styles.Player}
+            <div className={styles.VideoPlayer}>
+                <ReactPlayer
                     url={this.props.uri}
                     height={this.state.playerHeight}
                     width={this.state.playerWidth}

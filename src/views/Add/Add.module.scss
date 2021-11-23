@@ -1,1 +1,78 @@
-.Add {}
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.Add {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 1rem 3rem 1rem 4rem;
+
+  h2 {
+    font-size: 3rem;
+    margin: 0;
+    color: #81c481;
+  }
+}
+
+.CustomField {
+  font-size: 1rem;
+  position: relative;
+  border-top: 2rem solid transparent;
+
+  --field-padding: 1rem;
+  --width: 25rem;
+  --height: 3rem;
+
+  input {
+    border: none;
+    background: #d3d2d2;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    padding: var(--field-padding);
+    width: var(--width);
+    height: var(--height);
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  span {
+    position: absolute;
+    top: 1rem;
+    color: #b096e8;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    left: var(--field-padding);
+    width: calc(100% - (var(--field-padding) * 2));
+  }
+
+  input:focus + span {
+    top: -2.1rem;
+    color: #b096e8;
+    font-size: 2.1rem;
+  }
+}
+
+.Title {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 2rem;
+  color: lightgray;
+
+  //label {
+  //  margin: 1rem 1rem 1rem 0;
+  //}
+  //
+  //input {
+  //  background-color: lightgray;
+  //  height: 2rem;
+  //  width: 20rem;
+  //  font: inherit;
+  //}
+}

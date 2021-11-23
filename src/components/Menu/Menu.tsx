@@ -1,5 +1,3 @@
-import Burger from '@animated-burgers/burger-squeeze'
-import '@animated-burgers/burger-squeeze/dist/styles.css';
 import React from 'react';
 import styles from './Menu.module.scss';
 import {MenuState} from "./Menu.model";
@@ -29,13 +27,18 @@ class Menu extends React.Component<any, MenuState> {
     render() {
         const menuClassName = this.state.isOpen ? styles.Active : styles.Inactive;
         return (
-            <nav className={styles.Menu} role="menu" aria-label="main menu">
-                <Burger isOpen={this.state.isOpen} onClick={this.flipState} />
+            <nav role="menu" aria-label="main menu">
+                <div className={styles.BurgerMenu} onClick={this.flipState}>
+                    <hr />
+                    <hr />
+                    <hr />
+                </div>
                 <div className={menuClassName}>
-                    <Link to={ROUTES.add}>add</Link>
-                    <Link to={ROUTES.pick}>pick</Link>
-                    <Link to={ROUTES.play}>play</Link>
-                    <Link to={ROUTES.about}>about</Link>
+                    {/*<div className={styles.Close} onClick={this.flipState}>X</div>*/}
+                    <Link to={ROUTES.add}>ADD</Link>
+                    <Link to={ROUTES.pick}>PICK</Link>
+                    <Link to={ROUTES.play}>PLAY</Link>
+                    <Link to={ROUTES.about}>ABOUT</Link>
                 </div>
             </nav>
         );

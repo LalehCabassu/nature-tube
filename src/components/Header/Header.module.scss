@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem 1rem 2.5rem;
+  padding: 1rem 3rem 1rem 3rem;
 }
 
 .Logo {
@@ -12,11 +12,15 @@
   justify-content: flex-start;
   align-items: center;
 
-  a {
+  h1 {
     font-size: 5rem;
     font-weight: bold;
     padding: 1rem;
     color: #b096e8;
+    margin: 0;
+  }
+
+  a {
     text-decoration: none;
   }
 

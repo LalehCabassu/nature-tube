@@ -1,11 +1,21 @@
-.Menu {
+.BurgerMenu {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
-  background-color: #b096e8;
-  padding: 0.7rem;
-  border-radius: 2.5%;
+  align-items: center;
+
+  hr {
+    width: 3rem;
+    background-color: #b096e8;
+    border-radius: 0.2rem;
+    border: 0.2rem solid #b096e8;
+  }
+}
+
+.Close {
+  font-size: 4rem;
+  font-weight: bold;
+  margin: 1.5rem;
 }
 
 .Active {
@@ -15,10 +25,11 @@
   align-items: center;
   background-color: #b096e8;
   position: absolute;
-  top: 6.5rem;
+  top: 10rem;
   right: -100rem;
-  width: 8rem;
-  padding: 1rem;
+  width: 30%;
+  height: 100%;
+  padding: 0;
   animation: slide-in 0s forwards;
   border-radius: 1%;
   z-index: 10;
@@ -33,7 +44,7 @@
 
   @keyframes slide-in {
     100% {
-      right: 1.5rem;
+      right: 0;
     }
   }
 }
