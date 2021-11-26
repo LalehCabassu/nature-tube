@@ -20,8 +20,39 @@
   font-size: 2rem;
 }
 
+.Tab {
+  font-size: 1.5rem;
+  margin: 0;
+
+  .TabHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-weight: bold;
+
+    span {
+      padding: 1rem;
+      border-radius: 5%;
+    }
+  }
+
+  .TabContent {
+    position: absolute;
+    top: 22.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 1rem;
+    border-radius: 1%;
+    width: 50rem;
+  }
+}
+
 .Show {
   display: block;
+  background-color: #81c481;
 }
 
 .Hide {

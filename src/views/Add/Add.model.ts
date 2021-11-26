@@ -1,10 +1,10 @@
-export enum TAB {
-    uri,
-    dragNDrop
+export enum Tab {
+    Uri,
+    DragNDrop
 }
 
 export interface AddState {
-    tab: TAB
+    tab: Tab
 }
 
 export class Collection {
@@ -20,12 +20,17 @@ export class Collection {
         this.videos.push(video);
     }
 }
+
 export class Video {
     title: string;
     uri: string;
 
-    constructor(title: string, uri: string) {
+    constructor(title: string, uri?: string) {
         this.title = title;
+        this.uri = uri ?? '';
+    }
+
+    setUri(uri: string) {
         this.uri = uri;
     }
 }

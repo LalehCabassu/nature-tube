@@ -2,10 +2,11 @@ import React from 'react';
 import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import TextInput from './TextInput';
+import {InputSize} from "./TextInput.model";
 
 describe('<TextInput />', () => {
     test('it should mount', () => {
-        render(<TextInput name='' description='' onInputChange={() => {}}/>);
+        render(<TextInput description='' onInputChange={() => {}}/>);
 
         const textInput = screen.getByTestId('TextInput');
 
