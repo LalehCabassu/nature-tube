@@ -43,13 +43,13 @@ class VideoPlayer extends React.Component<VideoPlayerProps, VideoPlayerState> {
         return (
             <div className={styles.Main}>
                 <ReactPlayer className={styles.Player}
-                    url={this.props.uri}
-                    height={this.state.playerHeight}
-                    width={this.state.playerWidth}
-                    controls
-                    playing
-                    loop
-                    muted
+                             url={this.props.uri}
+                             height={this.state.playerHeight}
+                             width={this.state.playerWidth}
+                             controls
+                             playing
+                             loop
+                             muted
                 />
             </div>
         );

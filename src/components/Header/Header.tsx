@@ -17,7 +17,7 @@ class Header extends React.Component<any, any> {
                     <img src={logo} alt={this._title}/>
                     <Link to={ROUTES.home}>{this._title}</Link>
                 </div>
-                <Menu />
+                <Menu/>
             </header>
         );
     }

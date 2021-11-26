@@ -2,11 +2,11 @@
 import Pick from './Pick';
 
 export default {
-  title: "Pick",
+    title: "Pick",
 };
 
-export const Default = () => <Pick />;
+export const Default = () => <Pick/>;
 
 Default.story = {
-  name: 'default',
+    name: 'default',
 };

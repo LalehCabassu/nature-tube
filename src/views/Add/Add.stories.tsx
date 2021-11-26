@@ -2,11 +2,11 @@
 import Add from './Add';
 
 export default {
-  title: "Add",
+    title: "Add",
 };
 
-export const Default = () => <Add />;
+export const Default = () => <Add/>;
 
 Default.story = {
-  name: 'default',
+    name: 'default',
 };

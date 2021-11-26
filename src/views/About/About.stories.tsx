@@ -2,11 +2,11 @@
 import About from './About';
 
 export default {
-  title: "About",
+    title: "About",
 };
 
-export const Default = () => <About />;
+export const Default = () => <About/>;
 
 Default.story = {
-  name: 'default',
+    name: 'default',
 };

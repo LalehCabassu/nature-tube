@@ -1,0 +1,37 @@
+.TextInput {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  input {
+    background: gray;
+    height: 3rem;
+    width: 18rem;
+    font: inherit;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    margin: 0.5rem 0 0.5rem 0;
+
+    &:focus {
+      outline: none;
+
+      &::placeholder {
+        color: transparent;
+      }
+    }
+
+    &::placeholder {
+      color: white;
+    }
+  }
+}
+
+.Display {
+  visibility: visible;
+}
+
+.Hide {
+  visibility: hidden;
+}

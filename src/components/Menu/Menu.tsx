@@ -30,7 +30,7 @@ class Menu extends React.Component<any, MenuState> {
         const menuClassName = this.state.isOpen ? styles.Active : styles.Inactive;
         return (
             <nav className={styles.Menu} role="menu" aria-label="main menu">
-                <Burger isOpen={this.state.isOpen} onClick={this.flipState} />
+                <Burger isOpen={this.state.isOpen} onClick={this.flipState}/>
                 <div className={menuClassName}>
                     <Link to={ROUTES.add}>add</Link>
                     <Link to={ROUTES.pick}>pick</Link>

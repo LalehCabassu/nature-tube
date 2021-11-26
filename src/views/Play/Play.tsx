@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from "../Play/Play.module.scss";
+
 class Play extends React.Component<any, any> {
 
     render() {

@@ -2,11 +2,11 @@
 import Home from './Home';
 
 export default {
-  title: "Home",
+    title: "Home",
 };
 
-export const Default = () => <Home />;
+export const Default = () => <Home/>;
 
 Default.story = {
-  name: 'default',
+    name: 'default',
 };

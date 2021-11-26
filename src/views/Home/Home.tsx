@@ -16,8 +16,8 @@ class Home extends React.Component<any, any> {
         // const sourceUri = "https://www.youtube.com/watch?v=fk5PWZIATvU";
 
         return (
-            <div className={styles.Home} >
-                <VideoPlayer uri={sourceUri} />
+            <div className={styles.Home}>
+                <VideoPlayer uri={sourceUri}/>
             </div>
         );
     }

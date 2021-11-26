@@ -2,11 +2,11 @@
 import Menu from './Menu';
 
 export default {
-  title: "Menu",
+    title: "Menu",
 };
 
-export const Default = () => <Menu />;
+export const Default = () => <Menu/>;
 
 Default.story = {
-  name: 'default',
+    name: 'default',
 };

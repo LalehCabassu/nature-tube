@@ -7,7 +7,7 @@ const uri = "http://data.phys.ucalgary.ca/sort_by_project/AuroraMAX/rt-movies/mp
 
 describe('<TestComponent />', () => {
     test('it should mount', () => {
-        render(<VideoPlayer uri={uri} />);
+        render(<VideoPlayer uri={uri}/>);
 
         const testComponent = screen.getByTestId('TestComponent');
 

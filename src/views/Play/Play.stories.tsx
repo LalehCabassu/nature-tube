@@ -2,11 +2,11 @@
 import Play from './Play';
 
 export default {
-  title: "Play",
+    title: "Play",
 };
 
-export const Default = () => <Play />;
+export const Default = () => <Play/>;
 
 Default.story = {
-  name: 'default',
+    name: 'default',
 };
