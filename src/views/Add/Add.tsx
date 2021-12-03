@@ -2,13 +2,15 @@ import React from 'react';
 import styles from './Add.module.scss';
 import TextInput from "../../components/TextInput/TextInput";
 import {AddState, Collection, Tab, Video} from "./Add.model";
-import {InputSize} from "../../components/TextInput/TextInput.model";
+import {ElementSize} from "../../utils/ElementSize";
+import Button from "../../components/Button/Button";
 
 class Add extends React.Component<any, AddState> {
 
     private readonly _collectionInputDescription = 'Collection Title';
     private readonly _videoTitleInputDescription = 'Title';
     private readonly _uriInputDescription = 'URI';
+    private readonly _addButtonLabel = 'Add';
 
     private collection?: Collection;
     private video?: Video;
@@ -68,7 +70,7 @@ class Add extends React.Component<any, AddState> {
                 <div className={styles.Title}>
                     <TextInput
                         description={this._collectionInputDescription}
-                        size={InputSize.Medium}
+                        size={ElementSize.Medium}
                         onInputChange={this.handleCollectionTitle}
                     />
                 </div>
@@ -80,15 +82,15 @@ class Add extends React.Component<any, AddState> {
                     <div className={uriContentClassNames}>
                         <TextInput
                             description={this._videoTitleInputDescription}
-                            size={InputSize.Medium}
+                            size={ElementSize.Medium}
                             onInputChange={this.handleVideoTitle}
                         />
                         <TextInput
                             description={this._uriInputDescription}
-                            size={InputSize.Large}
+                            size={ElementSize.Large}
                             onInputChange={this.handleVideoUri}
                         />
-                        <button onClick={this.handleAdd}>Add</button>
+                        <Button label={this._addButtonLabel} size={ElementSize.Medium} onClick={this.handleAdd} />
                     </div>
                     <div className={dragNDropContentClassNames}>
                         <div>

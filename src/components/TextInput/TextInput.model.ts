@@ -1,11 +1,8 @@
-export enum InputSize {
-    Small = 'Small',
-    Medium = 'Medium',
-    Large = 'Large'
-}
+import {ElementSize} from "../../utils/ElementSize";
+
 export interface TextInputProps {
     description: string;
-    size?: InputSize;
+    size?: ElementSize;
     onInputChange: (inputValue: string) => void;
 }
 

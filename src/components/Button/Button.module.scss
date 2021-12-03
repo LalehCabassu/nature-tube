@@ -1,0 +1,34 @@
+.Button {
+  button {
+    font: inherit;
+    background-color: lightgray;
+    border-radius: 5%;
+    border: none;
+    width: 5rem;
+    height: 3rem;
+
+    &:hover {
+      background-color: #b096e8;
+      color: white;
+      cursor: pointer;
+    }
+  }
+}
+
+.Small {
+  button {
+    font-size:1.2rem;
+  }
+}
+
+.Medium {
+  button {
+    font-size: 1.5rem;
+  }
+}
+
+.Large {
+  button {
+    font-size: 2rem;
+  }
+}

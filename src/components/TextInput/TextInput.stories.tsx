@@ -1,6 +1,5 @@
 /* eslint-disable */
 import TextInput from './TextInput';
-import {InputSize} from "./TextInput.model";
 
 export default {
     title: "TextInput",
