@@ -4,7 +4,8 @@ export enum Tab {
 }
 
 export interface AddState {
-    tab: Tab
+    tab: Tab;
+    collection: Collection;
 }
 
 export class Collection {

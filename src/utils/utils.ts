@@ -2,7 +2,6 @@ import {ElementSize} from "./ElementSize";
 
 
 export function getClassNames(elementBaseClass, styles, elementSize?: ElementSize) {
-    console.log(elementBaseClass)
     let sizeClassName = '';
     switch (elementSize) {
         case ElementSize.Small:

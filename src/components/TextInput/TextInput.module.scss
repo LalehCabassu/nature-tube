@@ -4,7 +4,7 @@
   justify-content: flex-start;
   margin: 0.5rem 0 0.5rem 0;
 
-  input {
+  input, textarea {
     background: gray;
     height: 3rem;
     font: inherit;
@@ -50,8 +50,9 @@
 }
 
 .Large {
-  input {
-    width: 50rem;
+  textarea {
+    height: 10rem;
+    width: 20rem;
     font-size: 1.2rem;
   }
 }

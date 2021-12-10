@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './TextInput.module.scss';
 import {TextInputProps, TextInputState} from "./TextInput.model";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import {getClassNames} from "../../utils/utils";
+import {ElementSize} from "../../utils/ElementSize";
 
 class TextInput extends React.Component<TextInputProps, TextInputState> {
 
@@ -28,6 +29,7 @@ class TextInput extends React.Component<TextInputProps, TextInputState> {
 
     handleBlur(event) {
         const inputValue = event.target.value;
+        console.log(inputValue)
         if (inputValue) {
             this.setState(this.createState(true));
             this.props.onInputChange(inputValue);
@@ -39,17 +41,26 @@ class TextInput extends React.Component<TextInputProps, TextInputState> {
     render() {
         const labelClassName = (this.state.displayLabel) ? styles.Display : styles.Hide;
         const inputClassNames = getClassNames(styles.TextInput, styles, this.props.size);
+        const inputElement = (this.props.size === ElementSize.Large) ?
+            (<textarea
+                name={this._uuid}
+                placeholder={this.props.description}
+                onFocus={this.handleFocus}
+                onBlur={this.handleBlur}
+            >
+            </textarea>) :
+            (<input
+                name={this._uuid}
+                type='text'
+                required
+                placeholder={this.props.description}
+                onFocus={this.handleFocus}
+                onBlur={this.handleBlur}
+            />);
         return (
             <div className={inputClassNames}>
                 <label htmlFor={this._uuid} className={labelClassName}>{this.props.description}</label>
-                <input
-                    name={this._uuid}
-                    type='text'
-                    required
-                    placeholder={this.props.description}
-                    onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
-                />
+                {inputElement}
             </div>
         );
     }

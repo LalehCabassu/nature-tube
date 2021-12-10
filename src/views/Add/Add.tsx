@@ -4,9 +4,12 @@ import TextInput from "../../components/TextInput/TextInput";
 import {AddState, Collection, Tab, Video} from "./Add.model";
 import {ElementSize} from "../../utils/ElementSize";
 import Button from "../../components/Button/Button";
+import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 
 class Add extends React.Component<any, AddState> {
 
+    private readonly _uriTab = 'URI';
+    private readonly _dragDropTab = 'Drag & Drop';
     private readonly _collectionInputDescription = 'Collection Title';
     private readonly _videoTitleInputDescription = 'Title';
     private readonly _uriInputDescription = 'URI';
@@ -14,10 +17,14 @@ class Add extends React.Component<any, AddState> {
 
     private collection?: Collection;
     private video?: Video;
+    private videoTitleElement: React.ElementRef<any>;
+    private videoUriElement: React.ElementRef<any>;
 
     constructor(props) {
         super(props);
         this.state = this.createState(Tab.Uri);
+        this.videoTitleElement = React.createRef();
+        this.videoUriElement = React.createRef();
         this.handleCollectionTitle = this.handleCollectionTitle.bind(this);
         this.showUriTab = this.showUriTab.bind(this);
         this.showDragNDropTab = this.showDragNDropTab.bind(this);
@@ -32,8 +39,28 @@ class Add extends React.Component<any, AddState> {
         } as AddState;
     }
 
+    generatePreviewVideos() {
+        const videoPlayers: JSX.Element[] = [];
+
+        if(!this.state.collection || !this.state.collection?.videos) {
+            return videoPlayers;
+        }
+
+        this.state.collection?.videos.forEach(video => {
+            const videoPlayer = (
+                <div>
+                    <p><strong>{video.title}</strong></p>
+                    <VideoPlayer size={ElementSize.Small} uri={video.uri}/>
+                </div>
+            );
+            videoPlayers.push(videoPlayer);
+        });
+
+        return videoPlayers;
+    }
+
     handleAdd() {
-        console.log(this.collection);
+        this.updateCollection();
     }
 
     handleCollectionTitle(collectionTitle: string) {
@@ -50,15 +77,30 @@ class Add extends React.Component<any, AddState> {
     }
 
     showUriTab() {
-        this.setState(this.createState(Tab.Uri));
+        this.updateTabState(Tab.Uri);
     }
 
     showDragNDropTab() {
-        this.setState(this.createState(Tab.DragNDrop));
+        this.updateTabState(Tab.DragNDrop);
     }
 
-    render() {
-        const uriTabClassName = this.state.tab === Tab.Uri ? styles.Show : '';
+    updateCollection() {
+        this.setState(
+            {
+                tab: this.state.tab,
+                collection: this.collection
+            } as AddState);
+    }
+
+    updateTabState(tab: Tab) {
+        this.setState(
+            {
+                tab: tab,
+                collection: this.state.collection
+            } as AddState);
+    }
+
+    render() {        const uriTabClassName = this.state.tab === Tab.Uri ? styles.Show : '';
         const dragNDropTabClassName = this.state.tab === Tab.DragNDrop ? styles.Show : '';
 
         const uriContentClassNames = this.state.tab === Tab.Uri ? `${styles.Show} ${styles.TabContent}` : styles.Hide;
@@ -76,25 +118,48 @@ class Add extends React.Component<any, AddState> {
                 </div>
                 <div className={styles.Tab}>
                     <div className={styles.TabHeader}>
-                        <span className={uriTabClassName} onClick={this.showUriTab}>URI</span>
-                        <span className={dragNDropTabClassName} onClick={this.showDragNDropTab}>Drag & Drop</span>
+                        <span
+                            className={uriTabClassName}
+                            onClick={this.showUriTab}
+                        >
+                            {this._uriTab}
+                        </span>
+                        <span
+                            className={dragNDropTabClassName}
+                            onClick={this.showDragNDropTab}
+                        >
+                            {this._dragDropTab}
+                        </span>
                     </div>
                     <div className={uriContentClassNames}>
-                        <TextInput
-                            description={this._videoTitleInputDescription}
-                            size={ElementSize.Medium}
-                            onInputChange={this.handleVideoTitle}
-                        />
-                        <TextInput
-                            description={this._uriInputDescription}
-                            size={ElementSize.Large}
-                            onInputChange={this.handleVideoUri}
-                        />
-                        <Button label={this._addButtonLabel} size={ElementSize.Medium} onClick={this.handleAdd} />
+                        <div className={styles.SubSection}>
+                            <h3>Video Previews</h3>
+                            {this.generatePreviewVideos()}
+                        </div>
+                        <div className={styles.SubSection}>
+                            <h3>New Video</h3>
+                            <TextInput
+                                description={this._videoTitleInputDescription}
+                                size={ElementSize.Medium}
+                                onInputChange={this.handleVideoTitle}
+                            />
+                            <TextInput
+                                description={this._uriInputDescription}
+                                size={ElementSize.Large}
+                                onInputChange={this.handleVideoUri}
+                            />
+                            <div className={styles.AddButton}>
+                                <Button
+                                    label={this._addButtonLabel}
+                                    size={ElementSize.Medium}
+                                    onClick={this.handleAdd}
+                                />
+                            </div>
+                        </div>
                     </div>
                     <div className={dragNDropContentClassNames}>
                         <div>
-                            Drag & Drop
+                            {this._dragDropTab}
                         </div>
                     </div>
                 </div>

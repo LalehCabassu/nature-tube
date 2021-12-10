@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './VideoPlayer.module.scss'
 import {VideoPlayerProps, VideoPlayerState} from "./VideoPlayer.model";
 import ReactPlayer from "react-player";
+import {ElementSize} from "../../utils/ElementSize";
 
 class VideoPlayer extends React.Component<VideoPlayerProps, VideoPlayerState> {
 
@@ -15,7 +16,9 @@ class VideoPlayer extends React.Component<VideoPlayerProps, VideoPlayerState> {
     }
 
     componentDidMount() {
-        window.addEventListener('resize', this.setPlayerDimension);
+        if (this.props.autoAdjustableSize) {
+            window.addEventListener('resize', this.setPlayerDimension);
+        }
     }
 
     calculateHeight() {
@@ -29,14 +32,35 @@ class VideoPlayer extends React.Component<VideoPlayerProps, VideoPlayerState> {
     }
 
     createState() {
+        let height, width;
+        switch (this.props.size) {
+            case ElementSize.Small:
+                height = '50%';
+                width = '50%';
+                break;
+            case ElementSize.Medium:
+                height = '80%';
+                width = '80%';
+                break;
+            case ElementSize.Large:
+                height = '100%';
+                width = '100%';
+                break;
+            default:
+                height = this.calculateHeight();
+                width = this.calculateWidth();
+                break;
+        }
         return {
-            playerHeight: this.calculateHeight(),
-            playerWidth: this.calculateWidth()
+            playerHeight: height,
+            playerWidth: width
         };
     }
 
     setPlayerDimension = () => {
-        this.setState(this.createState());
+        if (this.props.autoAdjustableSize) {
+            this.setState(this.createState());
+        }
     }
 
     render() {
@@ -47,7 +71,7 @@ class VideoPlayer extends React.Component<VideoPlayerProps, VideoPlayerState> {
                              height={this.state.playerHeight}
                              width={this.state.playerWidth}
                              controls
-                             playing
+                             playing={this.props.autoPlay ?? false}
                              loop
                              muted
                 />
