@@ -5,37 +5,52 @@ import styles from './Menu.module.scss';
 import {MenuState} from "./Menu.model";
 import {ROUTES} from "../../App.model";
 import {Link} from 'react-router-dom';
+import {MenuService} from "../../services/MenuService";
 
 class Menu extends React.Component<any, MenuState> {
 
+    private menuService: MenuService;
+
     constructor(props: any) {
         super(props);
-        this.state = this.createState(false);
+
+        this.menuService = MenuService.Instance;
+        this.state = this.createState(this.menuService.isMenuOpen());
+        this.menuService.menuOpen.subscribe(value => {
+            this.setState(() => {
+                return this.createState(value)
+            });
+        });
+
+        this.closeMenu = this.closeMenu.bind(this);
         this.flipState = this.flipState.bind(this);
     }
 
-    createState(isOpen: boolean) {
+    createState(open?: boolean) {
         return {
-            isOpen: isOpen
-        }
+            open: open ?? false
+        } as MenuState;
+    }
+
+    closeMenu() {
+        this.menuService.closeMenu();
     }
 
     flipState() {
-        this.setState((state) => {
-            return this.createState(!state.isOpen)
-        });
+        this.menuService.flipMenu();
     }
 
     render() {
-        const menuClassName = this.state.isOpen ? styles.Active : styles.Inactive;
+        const menuClassName = this.state.open ? styles.Active : styles.Inactive;
         return (
             <nav className={styles.Menu} role="menu" aria-label="main menu">
-                <Burger isOpen={this.state.isOpen} onClick={this.flipState}/>
+                <Burger isOpen={this.state.open} onClick={this.flipState}/>
                 <div className={menuClassName}>
-                    <Link to={ROUTES.add}>add</Link>
-                    <Link to={ROUTES.pick}>pick</Link>
-                    <Link to={ROUTES.play}>play</Link>
-                    <Link to={ROUTES.about}>about</Link>
+                    <Link to={ROUTES.home} onClick={this.closeMenu}>home</Link>
+                    <Link to={ROUTES.add} onClick={this.closeMenu}>add</Link>
+                    <Link to={ROUTES.pick} onClick={this.closeMenu}>pick</Link>
+                    <Link to={ROUTES.play} onClick={this.closeMenu}>play</Link>
+                    <Link to={ROUTES.about} onClick={this.closeMenu}>about</Link>
                 </div>
             </nav>
         );

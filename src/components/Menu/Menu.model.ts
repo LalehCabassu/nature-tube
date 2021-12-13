@@ -1,3 +1,3 @@
 export interface MenuState {
-    isOpen: boolean
+    open: boolean
 }

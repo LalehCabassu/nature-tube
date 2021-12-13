@@ -35,7 +35,8 @@ class Add extends React.Component<any, AddState> {
 
     createState(tab: Tab) {
         return {
-            tab: tab
+            tab: tab,
+            reset: false
         } as AddState;
     }
 
@@ -88,7 +89,8 @@ class Add extends React.Component<any, AddState> {
         this.setState(
             {
                 tab: this.state.tab,
-                collection: this.collection
+                collection: this.collection,
+                reset: true
             } as AddState);
     }
 
@@ -96,11 +98,13 @@ class Add extends React.Component<any, AddState> {
         this.setState(
             {
                 tab: tab,
-                collection: this.state.collection
+                collection: this.state.collection,
+                reset: this.state.reset
             } as AddState);
     }
 
-    render() {        const uriTabClassName = this.state.tab === Tab.Uri ? styles.Show : '';
+    render() {
+        const uriTabClassName = this.state.tab === Tab.Uri ? styles.Show : '';
         const dragNDropTabClassName = this.state.tab === Tab.DragNDrop ? styles.Show : '';
 
         const uriContentClassNames = this.state.tab === Tab.Uri ? `${styles.Show} ${styles.TabContent}` : styles.Hide;
@@ -141,11 +145,13 @@ class Add extends React.Component<any, AddState> {
                             <TextInput
                                 description={this._videoTitleInputDescription}
                                 size={ElementSize.Medium}
+                                reset={this.state.reset}
                                 onInputChange={this.handleVideoTitle}
                             />
                             <TextInput
                                 description={this._uriInputDescription}
                                 size={ElementSize.Large}
+                                reset={this.state.reset}
                                 onInputChange={this.handleVideoUri}
                             />
                             <div className={styles.AddButton}>

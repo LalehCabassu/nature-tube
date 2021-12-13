@@ -8,18 +8,32 @@ import {ElementSize} from "../../utils/ElementSize";
 class TextInput extends React.Component<TextInputProps, TextInputState> {
 
     private readonly _uuid: string;
+    private readonly textAreaRef;
+    private readonly inputRef;
 
     constructor(props: TextInputProps) {
         super(props);
         this._uuid = uuidv4();
+        this.textAreaRef = React.createRef<HTMLTextAreaElement>();
+        this.inputRef = React.createRef<HTMLInputElement>();
         this.state = this.createState(false);
         this.handleFocus = this.handleFocus.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
     }
 
-    createState(displayLabel: boolean) {
+    componentDidUpdate(prevProps: Readonly<TextInputProps>, prevState: Readonly<TextInputState>, snapshot?: any) {
+        if (this.props.reset) {
+            if (this.textAreaRef.current) {
+                this.textAreaRef.current.value = '';
+            } else if (this.inputRef.current) {
+                this.inputRef.current.value = '';
+            }
+        }
+    }
+
+    createState(displayLabel?: boolean) {
         return {
-            displayLabel: displayLabel
+            displayLabel: displayLabel ?? this.state.displayLabel,
         } as TextInputState;
     }
 
@@ -29,7 +43,6 @@ class TextInput extends React.Component<TextInputProps, TextInputState> {
 
     handleBlur(event) {
         const inputValue = event.target.value;
-        console.log(inputValue)
         if (inputValue) {
             this.setState(this.createState(true));
             this.props.onInputChange(inputValue);
@@ -43,6 +56,7 @@ class TextInput extends React.Component<TextInputProps, TextInputState> {
         const inputClassNames = getClassNames(styles.TextInput, styles, this.props.size);
         const inputElement = (this.props.size === ElementSize.Large) ?
             (<textarea
+                ref={this.textAreaRef}
                 name={this._uuid}
                 placeholder={this.props.description}
                 onFocus={this.handleFocus}
@@ -50,6 +64,7 @@ class TextInput extends React.Component<TextInputProps, TextInputState> {
             >
             </textarea>) :
             (<input
+                ref={this.inputRef}
                 name={this._uuid}
                 type='text'
                 required

@@ -6,6 +6,7 @@ export enum Tab {
 export interface AddState {
     tab: Tab;
     collection: Collection;
+    reset: boolean
 }
 
 export class Collection {
