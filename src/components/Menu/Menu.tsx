@@ -5,7 +5,7 @@ import styles from './Menu.module.scss';
 import {MenuState} from "./Menu.model";
 import {ROUTES} from "../../App.model";
 import {Link} from 'react-router-dom';
-import {MenuService} from "../../services/MenuService";
+import {MenuService} from "../../services/Menu.service";
 
 class Menu extends React.Component<any, MenuState> {
 

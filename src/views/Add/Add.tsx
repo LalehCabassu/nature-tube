@@ -5,7 +5,7 @@ import {AddState, Collection, Tab, Video} from "./Add.model";
 import {ElementSize} from "../../utils/ElementSize";
 import Button from "../../components/Button/Button";
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
-import {FormService} from "../../services/FormService";
+import {FormService} from "../../services/Form.service";
 
 class Add extends React.Component<any, AddState> {
 
@@ -52,9 +52,9 @@ class Add extends React.Component<any, AddState> {
             return videoPlayers;
         }
 
-        this.state.collection?.videos.forEach(video => {
+        this.state.collection?.videos.forEach((video, index) => {
             const videoPlayer = (
-                <div>
+                <div key={index}>
                     <p><strong>{video.title}</strong></p>
                     <VideoPlayer size={ElementSize.Small} uri={video.uri}/>
                 </div>

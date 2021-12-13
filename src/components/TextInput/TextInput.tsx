@@ -4,7 +4,7 @@ import {TextInputProps, TextInputState} from "./TextInput.model";
 import {v4 as uuidv4} from 'uuid';
 import {getClassNames} from "../../utils/utils";
 import {ElementSize} from "../../utils/ElementSize";
-import {FormService} from "../../services/FormService";
+import {FormService} from "../../services/Form.service";
 
 class TextInput extends React.Component<TextInputProps, TextInputState> {
 
