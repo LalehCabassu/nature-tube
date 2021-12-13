@@ -4,6 +4,7 @@ import {TextInputProps, TextInputState} from "./TextInput.model";
 import {v4 as uuidv4} from 'uuid';
 import {getClassNames} from "../../utils/utils";
 import {ElementSize} from "../../utils/ElementSize";
+import {FormService} from "../../services/FormService";
 
 class TextInput extends React.Component<TextInputProps, TextInputState> {
 
@@ -11,24 +12,22 @@ class TextInput extends React.Component<TextInputProps, TextInputState> {
     private readonly textAreaRef;
     private readonly inputRef;
 
+    private formService: FormService;
+
     constructor(props: TextInputProps) {
         super(props);
         this._uuid = uuidv4();
         this.textAreaRef = React.createRef<HTMLTextAreaElement>();
         this.inputRef = React.createRef<HTMLInputElement>();
         this.state = this.createState(false);
+
+        this.formService = FormService.Instance;
+        this.formService.resetForm.subscribe(value => {
+            this.updateReset(value);
+        });
+
         this.handleFocus = this.handleFocus.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
-    }
-
-    componentDidUpdate(prevProps: Readonly<TextInputProps>, prevState: Readonly<TextInputState>, snapshot?: any) {
-        if (this.props.reset) {
-            if (this.textAreaRef.current) {
-                this.textAreaRef.current.value = '';
-            } else if (this.inputRef.current) {
-                this.inputRef.current.value = '';
-            }
-        }
     }
 
     createState(displayLabel?: boolean) {
@@ -39,6 +38,7 @@ class TextInput extends React.Component<TextInputProps, TextInputState> {
 
     handleFocus() {
         this.setState(this.createState(true));
+        this.formService.stopResetForm();
     }
 
     handleBlur(event) {
@@ -48,6 +48,16 @@ class TextInput extends React.Component<TextInputProps, TextInputState> {
             this.props.onInputChange(inputValue);
         } else {
             this.setState(this.createState(false));
+        }
+    }
+
+    updateReset(reset: boolean) {
+        if (reset && this.props.resetEnabled) {
+            if (this.textAreaRef.current) {
+                this.textAreaRef.current.value = '';
+            } else if (this.inputRef.current) {
+                this.inputRef.current.value = '';
+            }
         }
     }
 

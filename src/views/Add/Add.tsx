@@ -5,6 +5,7 @@ import {AddState, Collection, Tab, Video} from "./Add.model";
 import {ElementSize} from "../../utils/ElementSize";
 import Button from "../../components/Button/Button";
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
+import {FormService} from "../../services/FormService";
 
 class Add extends React.Component<any, AddState> {
 
@@ -20,11 +21,16 @@ class Add extends React.Component<any, AddState> {
     private videoTitleElement: React.ElementRef<any>;
     private videoUriElement: React.ElementRef<any>;
 
+    private formService: FormService;
+
     constructor(props) {
         super(props);
         this.state = this.createState(Tab.Uri);
         this.videoTitleElement = React.createRef();
         this.videoUriElement = React.createRef();
+
+        this.formService = FormService.Instance;
+
         this.handleCollectionTitle = this.handleCollectionTitle.bind(this);
         this.showUriTab = this.showUriTab.bind(this);
         this.showDragNDropTab = this.showDragNDropTab.bind(this);
@@ -35,8 +41,7 @@ class Add extends React.Component<any, AddState> {
 
     createState(tab: Tab) {
         return {
-            tab: tab,
-            reset: false
+            tab: tab
         } as AddState;
     }
 
@@ -61,6 +66,7 @@ class Add extends React.Component<any, AddState> {
     }
 
     handleAdd() {
+        this.formService.startResetForm();
         this.updateCollection();
     }
 
@@ -78,28 +84,26 @@ class Add extends React.Component<any, AddState> {
     }
 
     showUriTab() {
-        this.updateTabState(Tab.Uri);
+        this.updateTab(Tab.Uri);
     }
 
     showDragNDropTab() {
-        this.updateTabState(Tab.DragNDrop);
+        this.updateTab(Tab.DragNDrop);
     }
 
     updateCollection() {
         this.setState(
             {
                 tab: this.state.tab,
-                collection: this.collection,
-                reset: true
+                collection: this.collection
             } as AddState);
     }
 
-    updateTabState(tab: Tab) {
+    updateTab(tab: Tab) {
         this.setState(
             {
                 tab: tab,
-                collection: this.state.collection,
-                reset: this.state.reset
+                collection: this.state.collection
             } as AddState);
     }
 
@@ -145,13 +149,13 @@ class Add extends React.Component<any, AddState> {
                             <TextInput
                                 description={this._videoTitleInputDescription}
                                 size={ElementSize.Medium}
-                                reset={this.state.reset}
+                                resetEnabled={true}
                                 onInputChange={this.handleVideoTitle}
                             />
                             <TextInput
                                 description={this._uriInputDescription}
                                 size={ElementSize.Large}
-                                reset={this.state.reset}
+                                resetEnabled={true}
                                 onInputChange={this.handleVideoUri}
                             />
                             <div className={styles.AddButton}>
