@@ -20,6 +20,7 @@ class Button extends React.Component<ButtonProps, any> {
         return (
             <div className={classNames} >
                 <button
+                    type="submit"
                     onClick={this.onClick}
                 >
                     {this.props.label}

@@ -4,8 +4,6 @@
     background-color: lightgray;
     border-radius: 5%;
     border: none;
-    width: 5rem;
-    height: 3rem;
 
     &:hover {
       background-color: #b096e8;
@@ -18,17 +16,23 @@
 .Small {
   button {
     font-size:1.2rem;
+    width: 3rem;
+    height: 1rem;
   }
 }
 
 .Medium {
   button {
     font-size: 1.5rem;
+    width: 5rem;
+    height: 3rem;
   }
 }
 
 .Large {
   button {
     font-size: 2rem;
+    width: 7rem;
+    height: 5rem;
   }
 }

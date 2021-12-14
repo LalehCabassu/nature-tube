@@ -6,6 +6,7 @@ import {ElementSize} from "../../utils/ElementSize";
 import Button from "../../components/Button/Button";
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 import {FormService} from "../../services/Form.service";
+import CancelButton from "../../components/CancelButton/CancelButton";
 
 class Add extends React.Component<any, AddState> {
 
@@ -37,6 +38,7 @@ class Add extends React.Component<any, AddState> {
         this.handleVideoTitle = this.handleVideoTitle.bind(this);
         this.handleVideoUri = this.handleVideoUri.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
+        this.handleRemoveVideo = this.handleRemoveVideo.bind(this);
     }
 
     createState(tab: Tab) {
@@ -54,8 +56,11 @@ class Add extends React.Component<any, AddState> {
 
         this.state.collection?.videos.forEach((video, index) => {
             const videoPlayer = (
-                <div key={index}>
-                    <p><strong>{video.title}</strong></p>
+                <div key={index} className={styles.VideoPreview}>
+                    <span>
+                        <p><strong>{video.title}</strong></p>
+                        <CancelButton onClick={this.handleRemoveVideo}></CancelButton>
+                    </span>
                     <VideoPlayer size={ElementSize.Small} uri={video.uri}/>
                 </div>
             );
@@ -72,6 +77,10 @@ class Add extends React.Component<any, AddState> {
 
     handleCollectionTitle(collectionTitle: string) {
         this.collection = new Collection(collectionTitle);
+    }
+
+    handleRemoveVideo(event) {
+        console.log(event)
     }
 
     handleVideoTitle(videoTitle: string) {
