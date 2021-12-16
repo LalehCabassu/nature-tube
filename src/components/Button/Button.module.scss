@@ -1,13 +1,16 @@
+@import 'src/commons/styles';
+
 .Button {
   button {
     font: inherit;
-    background-color: lightgray;
+    color: $prussian-blue;
+    background-color: $lavender-web;
     border-radius: 5%;
     border: none;
 
     &:hover {
-      background-color: #b096e8;
-      color: white;
+      background-color: $pistachio;
+      color: $lavender-web;
       cursor: pointer;
     }
   }

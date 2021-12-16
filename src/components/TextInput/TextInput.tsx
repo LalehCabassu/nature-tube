@@ -30,22 +30,36 @@ class TextInput extends React.Component<TextInputProps, TextInputState> {
         this.handleBlur = this.handleBlur.bind(this);
     }
 
-    createState(displayLabel?: boolean) {
+    componentDidUpdate(prevProps: Readonly<TextInputProps>, prevState: Readonly<TextInputState>, snapshot?: any) {
+        if (this.props.error !== prevProps.error) {
+            this.setState(this.createState());
+        }
+    }
+
+    createState(displayLabel?: boolean, error?: boolean) {
         return {
             displayLabel: displayLabel ?? this.state.displayLabel,
+            error: error ?? this.props.error
         } as TextInputState;
     }
 
+    getLabelClassNames() {
+        const visibility = (this.state.displayLabel || this.state.error) ? styles.Display : styles.Hide;
+        const color = this.state.error ? styles.Error : '';
+        return `${visibility} ${color}`;
+    }
+
     handleFocus() {
-        this.setState(this.createState(true));
+        this.setState(this.createState(true, false));
         this.formService.stopResetForm();
     }
 
     handleBlur(event) {
         const inputValue = event.target.value;
+        this.props.onInputChange(inputValue);
+
         if (inputValue) {
-            this.setState(this.createState(true));
-            this.props.onInputChange(inputValue);
+            this.setState(this.createState(true, false));
         } else {
             this.setState(this.createState(false));
         }
@@ -58,12 +72,14 @@ class TextInput extends React.Component<TextInputProps, TextInputState> {
             } else if (this.inputRef.current) {
                 this.inputRef.current.value = '';
             }
+            this.setState(this.createState(false));
         }
     }
 
     render() {
-        const labelClassName = (this.state.displayLabel) ? styles.Display : styles.Hide;
-        const inputClassNames = getClassNames(styles.TextInput, styles, this.props.size);
+        const labelClassName = this.getLabelClassNames();
+        const inputClassNames = `${getClassNames(styles.TextInput, styles, this.props.size)}`;
+        const description = this.state.error ? this.props.errorMessage : this.props.description;
         const inputElement = (this.props.size === ElementSize.Large) ?
             (<textarea
                 ref={this.textAreaRef}
@@ -84,7 +100,7 @@ class TextInput extends React.Component<TextInputProps, TextInputState> {
             />);
         return (
             <div className={inputClassNames}>
-                <label htmlFor={this._uuid} className={labelClassName}>{this.props.description}</label>
+                <label htmlFor={this._uuid} className={labelClassName}>{description}</label>
                 {inputElement}
             </div>
         );

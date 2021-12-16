@@ -1,11 +1,11 @@
 import React from 'react';
-import cancelIcon from "../../assets/images/cancel-icon.svg";
-import {CancelButtonProps} from "./CancelButton.model";
+import cancelIcon from "../../assets/images/trash-can.svg";
+import {CancelButtonProps} from "./RemoveButton.model";
 import {getClassNames} from "../../utils/utils";
-import styles from './CancelButton.module.scss';
+import styles from './RemoveButton.module.scss';
 
 
-class CancelButton extends React.Component<CancelButtonProps, any> {
+class RemoveButton extends React.Component<CancelButtonProps, any> {
 
     constructor(props) {
         super(props);
@@ -30,4 +30,4 @@ class CancelButton extends React.Component<CancelButtonProps, any> {
     }
 }
 
-export default CancelButton;
+export default RemoveButton;

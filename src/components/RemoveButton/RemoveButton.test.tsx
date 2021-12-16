@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import CancelButton from './CancelButton';
+import RemoveButton from './RemoveButton';
 
-describe('<CancelButton />', () => {
+describe('<RemoveButton />', () => {
   test('it should mount', () => {
-    render(<CancelButton onClick={() => {}} />);
+    render(<RemoveButton onClick={() => {}} />);
     
-    const button = screen.getByTestId('CancelButton');
+    const button = screen.getByTestId('RemoveButton');
 
     expect(button).toBeInTheDocument();
   });

@@ -1,3 +1,5 @@
+@import 'src/commons/styles';
+
 @font-face {
   font-family: Wildcrazy;
   src: url(/assets/fonts/Wildcrazy-WKYO.ttf);
@@ -14,8 +16,8 @@
 }
 
 html {
-  background: black 80%;
-  color: whitesmoke;
+  background: $prussian-blue;
+  color: $lavender-web;
   font-family: CutiePatootie;
 }
 

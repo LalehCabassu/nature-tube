@@ -1,9 +1,11 @@
+@import 'src/commons/styles';
+
 .Menu {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  background-color: #b096e8;
+  background-color: $pistachio;
   padding: 0.7rem;
   border-radius: 2.5%;
 }
@@ -13,7 +15,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-color: #b096e8;
+  background-color: $pistachio;
   position: absolute;
   top: 6rem;
   right: -100rem;

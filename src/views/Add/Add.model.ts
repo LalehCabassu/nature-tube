@@ -1,3 +1,5 @@
+const UNTITLED = 'Untitled';
+
 export enum Tab {
     Uri,
     DragNDrop
@@ -6,14 +8,15 @@ export enum Tab {
 export interface AddState {
     tab: Tab;
     collection: Collection;
+    error: boolean;
 }
 
 export class Collection {
-    title: string;
+    title?: string;
     videos: Video[];
 
-    constructor(title: string) {
-        this.title = title;
+    constructor(title?: string) {
+        this.title = title || UNTITLED;
         this.videos = [];
     }
 
@@ -23,12 +26,16 @@ export class Collection {
 }
 
 export class Video {
-    title: string;
+    title?: string;
     uri: string;
 
-    constructor(title: string, uri?: string) {
-        this.title = title;
-        this.uri = uri ?? '';
+    constructor(title?: string) {
+        this.title = title || UNTITLED;
+        this.uri = '';
+    }
+
+    setTitle(title: string) {
+        this.title = title || UNTITLED;
     }
 
     setUri(uri: string) {

@@ -6,7 +6,7 @@ import {ElementSize} from "../../utils/ElementSize";
 import Button from "../../components/Button/Button";
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 import {FormService} from "../../services/Form.service";
-import CancelButton from "../../components/CancelButton/CancelButton";
+import RemoveButton from "../../components/RemoveButton/RemoveButton";
 
 class Add extends React.Component<any, AddState> {
 
@@ -15,10 +15,11 @@ class Add extends React.Component<any, AddState> {
     private readonly _collectionInputDescription = 'Collection Title';
     private readonly _videoTitleInputDescription = 'Title';
     private readonly _uriInputDescription = 'URI';
+    private readonly _uriInputErrorMessage = 'Forgot uri ;)';
     private readonly _addButtonLabel = 'Add';
 
-    private collection?: Collection;
-    private video?: Video;
+    private collection: Collection;
+    private video: Video;
     private videoTitleElement: React.ElementRef<any>;
     private videoUriElement: React.ElementRef<any>;
 
@@ -26,6 +27,10 @@ class Add extends React.Component<any, AddState> {
 
     constructor(props) {
         super(props);
+
+        this.collection = new Collection();
+        this.video = new Video();
+
         this.state = this.createState(Tab.Uri);
         this.videoTitleElement = React.createRef();
         this.videoUriElement = React.createRef();
@@ -57,11 +62,11 @@ class Add extends React.Component<any, AddState> {
         this.state.collection?.videos.forEach((video, index) => {
             const videoPlayer = (
                 <div key={index} className={styles.VideoPreview}>
+                    <RemoveButton onClick={this.handleRemoveVideo}></RemoveButton>
                     <span>
                         <p><strong>{video.title}</strong></p>
-                        <CancelButton onClick={this.handleRemoveVideo}></CancelButton>
+                        <VideoPlayer size={ElementSize.Small} uri={video.uri}/>
                     </span>
-                    <VideoPlayer size={ElementSize.Small} uri={video.uri}/>
                 </div>
             );
             videoPlayers.push(videoPlayer);
@@ -71,8 +76,13 @@ class Add extends React.Component<any, AddState> {
     }
 
     handleAdd() {
-        this.formService.startResetForm();
-        this.updateCollection();
+        const isValid = this.validateNewVideo();
+        if (isValid) {
+            this.updateCollection(!isValid);
+            this.resetForm();
+        } else {
+            this.setError(!isValid);
+        }
     }
 
     handleCollectionTitle(collectionTitle: string) {
@@ -84,12 +94,25 @@ class Add extends React.Component<any, AddState> {
     }
 
     handleVideoTitle(videoTitle: string) {
-        this.video = new Video(videoTitle);
-        this.collection?.addVideo(this.video);
+        this.video?.setTitle(videoTitle);
     }
 
     handleVideoUri(videoUri: string) {
         this.video?.setUri(videoUri);
+    }
+
+    resetForm() {
+        this.formService.startResetForm();
+        this.video = new Video();
+    }
+
+    setError(error: boolean) {
+        this.setState(
+            {
+                tab: this.state.tab,
+                collection: this.state.collection,
+                error: error
+            } as AddState);
     }
 
     showUriTab() {
@@ -100,11 +123,17 @@ class Add extends React.Component<any, AddState> {
         this.updateTab(Tab.DragNDrop);
     }
 
-    updateCollection() {
+    validateNewVideo(): boolean {
+        return !!this.video.uri;
+    }
+
+    updateCollection(error) {
+        this.collection?.addVideo(this.video);
         this.setState(
             {
                 tab: this.state.tab,
-                collection: this.collection
+                collection: this.collection,
+                error: error
             } as AddState);
     }
 
@@ -164,6 +193,8 @@ class Add extends React.Component<any, AddState> {
                             <TextInput
                                 description={this._uriInputDescription}
                                 size={ElementSize.Large}
+                                error={this.state.error}
+                                errorMessage={this._uriInputErrorMessage}
                                 resetEnabled={true}
                                 onInputChange={this.handleVideoUri}
                             />
