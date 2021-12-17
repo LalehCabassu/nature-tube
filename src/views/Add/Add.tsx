@@ -4,9 +4,8 @@ import TextInput from "../../components/TextInput/TextInput";
 import {AddState, Collection, Tab, Video} from "./Add.model";
 import {ElementSize} from "../../utils/ElementSize";
 import Button from "../../components/Button/Button";
-import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 import {FormService} from "../../services/Form.service";
-import RemoveButton from "../../components/RemoveButton/RemoveButton";
+import VideoPreview from "../../components/VideoPreview/VideoPreview";
 
 class Add extends React.Component<any, AddState> {
 
@@ -61,13 +60,7 @@ class Add extends React.Component<any, AddState> {
 
         this.state.collection?.videos.forEach((video, index) => {
             const videoPlayer = (
-                <div key={index} className={styles.VideoPreview}>
-                    <RemoveButton onClick={this.handleRemoveVideo}></RemoveButton>
-                    <span>
-                        <p><strong>{video.title}</strong></p>
-                        <VideoPlayer size={ElementSize.Small} uri={video.uri}/>
-                    </span>
-                </div>
+                <VideoPreview key={index} id={`${index}`} title={video.title} uri={video.uri} size={ElementSize.Small} onRemove={this.handleRemoveVideo} />
             );
             videoPlayers.push(videoPlayer);
         });
@@ -78,6 +71,7 @@ class Add extends React.Component<any, AddState> {
     handleAdd() {
         const isValid = this.validateNewVideo();
         if (isValid) {
+            this.collection?.addVideo(this.video);
             this.updateCollection(!isValid);
             this.resetForm();
         } else {
@@ -89,8 +83,15 @@ class Add extends React.Component<any, AddState> {
         this.collection = new Collection(collectionTitle);
     }
 
-    handleRemoveVideo(event) {
-        console.log(event)
+    handleRemoveVideo(videoIndexToRemove?: string) {
+        if (!videoIndexToRemove) {
+            return;
+        }
+
+        this.collection.videos =
+            this.collection.videos.filter((video, index) => index!== parseInt(videoIndexToRemove));
+
+        this.updateCollection(false);
     }
 
     handleVideoTitle(videoTitle: string) {
@@ -128,7 +129,6 @@ class Add extends React.Component<any, AddState> {
     }
 
     updateCollection(error) {
-        this.collection?.addVideo(this.video);
         this.setState(
             {
                 tab: this.state.tab,

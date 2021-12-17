@@ -7,13 +7,15 @@ import styles from './RemoveButton.module.scss';
 
 class RemoveButton extends React.Component<CancelButtonProps, any> {
 
+    private readonly _icon_alt = 'Remove the video';
+
     constructor(props) {
         super(props);
         this.onClick = this.onClick.bind(this);
     }
 
-    onClick(event) {
-        this.props.onClick(event);
+    onClick() {
+        this.props.onClick();
     }
 
     render() {
@@ -23,7 +25,7 @@ class RemoveButton extends React.Component<CancelButtonProps, any> {
                 <button
                     onClick={this.onClick}
                 >
-                    <img src={cancelIcon}/>
+                    <img alt={this._icon_alt} src={cancelIcon}/>
                 </button>
             </div>
         );

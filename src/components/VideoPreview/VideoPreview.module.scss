@@ -1,0 +1,22 @@
+@import 'src/commons/styles';
+
+.VideoPreview {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  span {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    padding: 0.5rem;
+
+    p {
+      margin: 0 0 0 0.5rem;
+      color: $prussian-blue;
+    }
+  }
+}

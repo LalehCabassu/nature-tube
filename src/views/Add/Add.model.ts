@@ -26,7 +26,7 @@ export class Collection {
 }
 
 export class Video {
-    title?: string;
+    title: string;
     uri: string;
 
     constructor(title?: string) {
