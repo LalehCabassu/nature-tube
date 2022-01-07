@@ -6,6 +6,8 @@ import {ElementSize} from "../../utils/ElementSize";
 import Button from "../../components/Button/Button";
 import {FormService} from "../../services/Form.service";
 import VideoPreview from "../../components/VideoPreview/VideoPreview";
+import {connect} from "react-redux";
+import {decrement, increment, selectCount} from "../../stores/counterSlice";
 
 class Add extends React.Component<any, AddState> {
 
@@ -135,6 +137,8 @@ class Add extends React.Component<any, AddState> {
                 collection: this.collection,
                 error: error
             } as AddState);
+        this.props.increment();
+        console.log('*** ', this.props.count);
     }
 
     updateTab(tab: Tab) {
@@ -218,4 +222,10 @@ class Add extends React.Component<any, AddState> {
     }
 }
 
-export default Add;
+const mapStateToProps = (state) => ({
+    count: state.counter.value
+});
+
+const mapDispatchToProps = { increment, decrement };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Add);
