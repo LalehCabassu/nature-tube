@@ -1,13 +1,14 @@
 import React from 'react';
 import styles from './Add.module.scss';
 import TextInput from "../../components/TextInput/TextInput";
-import {AddState, Collection, Tab, Video} from "./Add.model";
+import {AddProps, AddState, Tab} from "./Add.model";
 import {ElementSize} from "../../utils/ElementSize";
 import Button from "../../components/Button/Button";
 import {FormService} from "../../services/Form.service";
 import VideoPreview from "../../components/VideoPreview/VideoPreview";
+import {Collection, Video} from "../../contexts/CollectionContext/CollectionContext.model";
 
-class Add extends React.Component<any, AddState> {
+class Add extends React.Component<AddProps, AddState> {
 
     private readonly _uriTab = 'URI';
     private readonly _dragDropTab = 'Drag & Drop';
@@ -16,6 +17,7 @@ class Add extends React.Component<any, AddState> {
     private readonly _uriInputDescription = 'URI';
     private readonly _uriInputErrorMessage = 'Forgot uri ;)';
     private readonly _addButtonLabel = 'Add';
+    private readonly _saveButtonLabel = 'Save';
 
     private collection: Collection;
     private video: Video;
@@ -43,6 +45,7 @@ class Add extends React.Component<any, AddState> {
         this.handleVideoUri = this.handleVideoUri.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.handleRemoveVideo = this.handleRemoveVideo.bind(this);
+        this.handleSave = this.handleSave.bind(this);
     }
 
     createState(tab: Tab) {
@@ -81,6 +84,10 @@ class Add extends React.Component<any, AddState> {
 
     handleCollectionTitle(collectionTitle: string) {
         this.collection = new Collection(collectionTitle);
+    }
+
+    handleSave() {
+        this.props.onSave(this.collection);
     }
 
     handleRemoveVideo(videoIndexToRemove?: string) {
@@ -161,6 +168,13 @@ class Add extends React.Component<any, AddState> {
                         size={ElementSize.Medium}
                         onInputChange={this.handleCollectionTitle}
                     />
+                    <div className={styles.AddButton}>
+                        <Button
+                            label={this._saveButtonLabel}
+                            size={ElementSize.Medium}
+                            onClick={this.handleSave}
+                        />
+                    </div>
                 </div>
                 <div className={styles.Tab}>
                     <div className={styles.TabHeader}>

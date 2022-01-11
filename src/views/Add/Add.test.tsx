@@ -5,7 +5,7 @@ import Add from './Add';
 
 describe('<Add />', () => {
     test('it should mount', () => {
-        render(<Add/>);
+        render(<Add onSave={() => {}}/>);
 
         const add = screen.getByTestId('Add');
 
