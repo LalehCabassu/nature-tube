@@ -7,6 +7,8 @@ import Button from "../../components/Button/Button";
 import {FormService} from "../../services/Form.service";
 import VideoPreview from "../../components/VideoPreview/VideoPreview";
 import {Collection, Video} from "../../contexts/CollectionContext/CollectionContext.model";
+import {ROUTES} from "../../App.model";
+import {Redirect} from "react-router-dom";
 
 class Add extends React.Component<AddProps, AddState> {
 
@@ -88,6 +90,12 @@ class Add extends React.Component<AddProps, AddState> {
 
     handleSave() {
         this.props.onSave(this.collection);
+        this.setState({
+            tab: this.state.tab,
+            collection: this.state.collection,
+            error: this.state.error,
+            redirect: true
+        } as AddState)
     }
 
     handleRemoveVideo(videoIndexToRemove?: string) {
@@ -159,45 +167,38 @@ class Add extends React.Component<AddProps, AddState> {
         const uriContentClassNames = this.state.tab === Tab.Uri ? `${styles.Show} ${styles.TabContent}` : styles.Hide;
         const dragNDropContentClassNames = this.state.tab === Tab.DragNDrop ? `${styles.Show} ${styles.TabContent}` : styles.Hide;
 
-        return (
+        const redirect = (
+          <Redirect to={ROUTES.pick} />
+        );
+
+        const contentToRender = (
             <div className={styles.Add}>
-                <h2>Add a new collection</h2>
+                <h1>Add a new collection</h1>
                 <div className={styles.Title}>
                     <TextInput
                         description={this._collectionInputDescription}
                         size={ElementSize.Medium}
                         onInputChange={this.handleCollectionTitle}
                     />
-                    <div className={styles.AddButton}>
-                        <Button
-                            label={this._saveButtonLabel}
-                            size={ElementSize.Medium}
-                            onClick={this.handleSave}
-                        />
-                    </div>
                 </div>
                 <div className={styles.Tab}>
                     <div className={styles.TabHeader}>
-                        <span
-                            className={uriTabClassName}
-                            onClick={this.showUriTab}
-                        >
-                            {this._uriTab}
-                        </span>
+                    <span
+                        className={uriTabClassName}
+                        onClick={this.showUriTab}
+                    >
+                        {this._uriTab}
+                    </span>
                         <span
                             className={dragNDropTabClassName}
                             onClick={this.showDragNDropTab}
                         >
-                            {this._dragDropTab}
-                        </span>
+                        {this._dragDropTab}
+                    </span>
                     </div>
                     <div className={uriContentClassNames}>
                         <div className={styles.SubSection}>
-                            <h3>Video Previews</h3>
-                            {this.generatePreviewVideos()}
-                        </div>
-                        <div className={styles.SubSection}>
-                            <h3>New Video</h3>
+                            <h2>New Video</h2>
                             <TextInput
                                 description={this._videoTitleInputDescription}
                                 size={ElementSize.Medium}
@@ -220,6 +221,10 @@ class Add extends React.Component<AddProps, AddState> {
                                 />
                             </div>
                         </div>
+                        <div className={styles.SubSection}>
+                            <h2>Video Previews</h2>
+                            {this.generatePreviewVideos()}
+                        </div>
                     </div>
                     <div className={dragNDropContentClassNames}>
                         <div>
@@ -227,8 +232,17 @@ class Add extends React.Component<AddProps, AddState> {
                         </div>
                     </div>
                 </div>
+                <div className={styles.SaveButton}>
+                    <Button
+                        label={this._saveButtonLabel}
+                        size={ElementSize.Medium}
+                        onClick={this.handleSave}
+                    />
+                </div>
             </div>
         );
+
+        return this.state.redirect ? redirect : contentToRender;
     }
 }
 

@@ -25,13 +25,13 @@ class App extends React.Component<any, AppState> {
     }
 
     updateCollections(collection) {
-        this.setState((state) => {
-            state.collectionContext.collections.push(collection);
-            return {
-                collectionContext: state.collectionContext
-            } as AppState;
-        });
-   }
+        this.state.collectionContext.collections.push(collection);
+        this.setState({
+            collectionContext: {
+                collections: this.state.collectionContext.collections
+            } as CollectionContextModel
+        } as AppState);
+    }
 
     render() {
         return (

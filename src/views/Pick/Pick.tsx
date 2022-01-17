@@ -5,10 +5,12 @@ import {CollectionContext} from "../../contexts/CollectionContext/CollectionCont
 class Pick extends React.Component<any, any> {
 
     render() {
-        console.log(this.context.collections)
+        const collectionTitles =
+            this.context.collections.map((collection, index) => (<p key={index}> {collection.title} </p>));
         return (
             <div className={styles.Pick} data-testid="Pick">
                 Pick Component
+                {collectionTitles}
             </div>
         );
     }

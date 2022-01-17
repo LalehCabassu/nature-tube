@@ -13,4 +13,5 @@ export interface AddState {
     tab: Tab;
     collection: Collection;
     error: boolean;
+    redirect: boolean;
 }

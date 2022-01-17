@@ -17,20 +17,31 @@
   align-items: center;
   background-color: $pistachio;
   position: absolute;
-  top: 6rem;
   right: -100rem;
-  width: 8rem;
   padding: 1rem;
   animation: slide-in 0s forwards;
   border-radius: 1%;
   z-index: 10;
+  top: 0;
+  height: 100%;
+  width: 91%;
+
+  @media screen and (min-device-width: $breakpoint-xs) {
+    //top: 5.5rem;
+    width: 30%;
+    //height: 85.5%;
+  }
 
   a {
     padding: 1rem 0.5rem 1rem 0.5rem;
-    font-size: 2rem;
     font-weight: bold;
     text-decoration: none;
     color: white;
+    font-size: 4rem;
+
+    @media screen and (min-device-width: $breakpoint-xs) {
+      font-size: 2rem;
+    }
   }
 
   @keyframes slide-in {

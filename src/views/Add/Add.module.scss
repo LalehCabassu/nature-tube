@@ -7,29 +7,20 @@
   align-items: flex-start;
   padding: 0.5rem 3rem 1rem 3rem;
 
-  h2 {
-    font-size: 3rem;
-    margin: 0;
-    color: $pistachio;
-  }
-
-  h3 {
-    font-size: 2rem;
-    margin: 0;
-  }
 }
 
 .Title {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   font-size: 2rem;
 }
 
 .Tab {
   font-size: 1.5rem;
   margin: 1rem 0 0 0;
+  width: 100%;
 
   .TabHeader {
     display: flex;
@@ -45,15 +36,13 @@
   }
 
   .TabContent {
-    position: absolute;
-    top: 23.5rem;
+    margin-top: -0.5rem;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: flex-start;
     padding: 1rem;
     border-radius: 1%;
-    width: calc(100% - 7rem);
   }
 }
 
@@ -77,5 +66,10 @@
 .AddButton {
   align-self: flex-end;
   margin: 2rem 0 0 0;
+}
+
+.SaveButton {
+  align-self: flex-end;
+  margin: 1rem 0 0 0;
 }
 
