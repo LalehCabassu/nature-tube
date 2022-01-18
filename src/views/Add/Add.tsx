@@ -9,6 +9,7 @@ import VideoPreview from "../../components/VideoPreview/VideoPreview";
 import {Collection, Video} from "../../contexts/CollectionContext/CollectionContext.model";
 import {ROUTES} from "../../App.model";
 import {Redirect} from "react-router-dom";
+import {CollectionService} from "../../services/Collection.service";
 
 class Add extends React.Component<AddProps, AddState> {
 
@@ -26,7 +27,8 @@ class Add extends React.Component<AddProps, AddState> {
     private videoTitleElement: React.ElementRef<any>;
     private videoUriElement: React.ElementRef<any>;
 
-    private formService: FormService;
+    private readonly formService: FormService;
+    private readonly collectionService: CollectionService;
 
     constructor(props) {
         super(props);
@@ -39,6 +41,7 @@ class Add extends React.Component<AddProps, AddState> {
         this.videoUriElement = React.createRef();
 
         this.formService = FormService.Instance;
+        this.collectionService = CollectionService.Instance;
 
         this.handleCollectionTitle = this.handleCollectionTitle.bind(this);
         this.showUriTab = this.showUriTab.bind(this);
@@ -95,7 +98,8 @@ class Add extends React.Component<AddProps, AddState> {
             collection: this.state.collection,
             error: this.state.error,
             redirect: true
-        } as AddState)
+        } as AddState);
+        this.collectionService.add(this.collection);
     }
 
     handleRemoveVideo(videoIndexToRemove?: string) {
