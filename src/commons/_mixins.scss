@@ -1,0 +1,44 @@
+$screen-size-breakpoints: (
+        xxs: 320px,
+        xs: 481px,
+        s: 769px,
+        m: 1025px,
+        l: 1201px,
+        xl: 1441px
+);
+
+@mixin is-less-than($breakpoint-key) {
+  @if has-breakpoint($breakpoint-key) {
+    $breakpoint-value: map-get($screen-size-breakpoints, $breakpoint-key);
+    @media (max-width: ($breakpoint-value - 1)) {
+      @content;
+    }
+  }
+}
+
+@mixin is-greater-than-or-equal($breakpoint-key) {
+  @if has-breakpoint($breakpoint-key) {
+    $breakpoint-value: map-get($screen-size-breakpoints, $breakpoint-key);
+    @media (min-width: ($breakpoint-value)) {
+      @content;
+    }
+  }
+}
+
+@mixin is-between($lower-breakpoint-key, $higher-breakpoint-key) {
+  @if has-breakpoint($lower-breakpoint-key) and has-breakpoint($higher-breakpoint-key) {
+    $lower-breakpoint-value: map-get($screen-size-breakpoints, $lower-breakpoint-key);
+    $higher-breakpoint-value: map-get($screen-size-breakpoints, $higher-breakpoint-key);
+    @media (min-width: $lower-breakpoint-key) and (max-width: ($higher-breakpoint-value - 1)) {
+      @content;
+    }
+  }
+}
+
+@function has-breakpoint($breakpoint-key) {
+  @if not(map-has-key($screen-size-breakpoints, $breakpoint-key)) {
+    @warn 'The breakpoint not found!';
+    @return false;
+  }
+  @return true;
+}

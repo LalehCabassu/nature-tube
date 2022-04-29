@@ -1,14 +1,15 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Button from './Button';
 
 describe('<Button />', () => {
-  test('it should mount', () => {
-    render(<Button label='' onClick={() => {}} />);
-    
-    const button = screen.getByTestId('Button');
+    test('it should mount', () => {
+        render(<Button label='' onClick={() => {
+        }}/>);
 
-    expect(button).toBeInTheDocument();
-  });
+        const button = screen.getByTestId('Button');
+
+        expect(button).toBeInTheDocument();
+    });
 });

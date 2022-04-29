@@ -5,11 +5,12 @@ import VideoPreview from './VideoPreview';
 import {ElementSize} from "../../utils/ElementSize";
 
 describe('<VideoPreview />', () => {
-  test('it should mount', () => {
-    render(<VideoPreview id='' size={ElementSize.Small} uri='' title='' onRemove={() => {}} />);
-    
-    const videoPreview = screen.getByTestId('VideoPreview');
+    test('it should mount', () => {
+        render(<VideoPreview id='' size={ElementSize.Small} uri='' title='' onRemove={() => {
+        }}/>);
 
-    expect(videoPreview).toBeInTheDocument();
-  });
+        const videoPreview = screen.getByTestId('VideoPreview');
+
+        expect(videoPreview).toBeInTheDocument();
+    });
 });

@@ -21,7 +21,7 @@ class RemoveButton extends React.Component<CancelButtonProps, any> {
     render() {
         const classNames = getClassNames(styles.CancelButton, styles, this.props.size);
         return (
-            <div className={classNames} >
+            <div className={classNames}>
                 <button
                     onClick={this.onClick}
                 >

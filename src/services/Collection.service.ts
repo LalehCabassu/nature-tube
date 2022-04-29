@@ -3,7 +3,7 @@ import {Collection} from "../contexts/CollectionContext/CollectionContext.model"
 
 export class CollectionService {
 
-    private static readonly _collectionsEndpoint = '/collections'
+    private static readonly _collectionsEndpoint = '/collection'
     private static _instance;
 
     private constructor() {
@@ -22,10 +22,10 @@ export class CollectionService {
             CollectionService._collectionsEndpoint,
             collection
         )
-        .then(response => response.status)
-        .catch(error => {
-            console.error(error);
-        });
+            .then(response => response.status)
+            .catch(error => {
+                console.error(error);
+            });
     }
 
 }

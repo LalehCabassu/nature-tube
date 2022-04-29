@@ -18,7 +18,7 @@ export class VideoPreview extends React.Component<VideoPreviewProps, any> {
     render() {
         return (
             <div key={this.props.id} className={styles.VideoPreview}>
-                <RemoveButton onClick={this.onRemove} />
+                <RemoveButton onClick={this.onRemove}/>
                 <span>
                         <p><strong>{this.props.title}</strong></p>
                         <VideoPlayer size={this.props.size} uri={this.props.uri}/>

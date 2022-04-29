@@ -3,11 +3,12 @@ import VideoPreview from './VideoPreview';
 import {ElementSize} from "../../utils/ElementSize";
 
 export default {
-  title: "VideoPreview",
+    title: "VideoPreview",
 };
 
-export const Default = () => <VideoPreview id='' size={ElementSize.Small} uri='' title='' onRemove={() => {}} />;
+export const Default = () => <VideoPreview id='' size={ElementSize.Small} uri='' title='' onRemove={() => {
+}}/>;
 
 Default.story = {
-  name: 'default',
+    name: 'default',
 };

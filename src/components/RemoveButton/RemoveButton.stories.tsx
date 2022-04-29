@@ -2,11 +2,12 @@
 import RemoveButton from './RemoveButton';
 
 export default {
-  title: "RemoveButton",
+    title: "RemoveButton",
 };
 
-export const Default = () => <RemoveButton onClick={() => {}} />;
+export const Default = () => <RemoveButton onClick={() => {
+}}/>;
 
 Default.story = {
-  name: 'default',
+    name: 'default',
 };

@@ -18,7 +18,7 @@ class Button extends React.Component<ButtonProps, any> {
     render() {
         const classNames = getClassNames(styles.Button, styles, this.props.size);
         return (
-            <div className={classNames} >
+            <div className={classNames}>
                 <button
                     type="submit"
                     onClick={this.onClick}

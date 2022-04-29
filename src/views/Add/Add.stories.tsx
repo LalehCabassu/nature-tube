@@ -5,7 +5,8 @@ export default {
     title: "Add",
 };
 
-export const Default = () => <Add onSave={() => {}}/>;
+export const Default = () => <Add onSave={() => {
+}}/>;
 
 Default.story = {
     name: 'default',

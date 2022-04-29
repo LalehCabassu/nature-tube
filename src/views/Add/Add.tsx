@@ -62,13 +62,14 @@ class Add extends React.Component<AddProps, AddState> {
     generatePreviewVideos() {
         const videoPlayers: JSX.Element[] = [];
 
-        if(!this.state.collection || !this.state.collection?.videos) {
+        if (!this.state.collection || !this.state.collection?.videos) {
             return videoPlayers;
         }
 
         this.state.collection?.videos.forEach((video, index) => {
             const videoPlayer = (
-                <VideoPreview key={index} id={`${index}`} title={video.title} uri={video.uri} size={ElementSize.Small} onRemove={this.handleRemoveVideo} />
+                <VideoPreview key={index} id={`${index}`} title={video.title} uri={video.uri} size={ElementSize.Small}
+                              onRemove={this.handleRemoveVideo}/>
             );
             videoPlayers.push(videoPlayer);
         });
@@ -108,7 +109,7 @@ class Add extends React.Component<AddProps, AddState> {
         }
 
         this.collection.videos =
-            this.collection.videos.filter((video, index) => index!== parseInt(videoIndexToRemove));
+            this.collection.videos.filter((video, index) => index !== parseInt(videoIndexToRemove));
 
         this.updateCollection(false);
     }
@@ -172,7 +173,7 @@ class Add extends React.Component<AddProps, AddState> {
         const dragNDropContentClassNames = this.state.tab === Tab.DragNDrop ? `${styles.Show} ${styles.TabContent}` : styles.Hide;
 
         const redirect = (
-          <Redirect to={ROUTES.pick} />
+            <Redirect to={ROUTES.pick}/>
         );
 
         const contentToRender = (
