@@ -1,35 +1,22 @@
 import React from 'react';
 import cancelIcon from "../../assets/images/trash-can.svg";
 import {CancelButtonProps} from "./RemoveButton.model";
-import {getClassNames} from "../../utils/utils";
+import {getClassNames} from "../../services/elementSize/elementSize.service";
 import styles from './RemoveButton.module.scss';
 
 
-class RemoveButton extends React.Component<CancelButtonProps, any> {
+export function RemoveButton(props: CancelButtonProps) {
 
-    private readonly _icon_alt = 'Remove the video';
+    const _icon_alt = 'Remove the video';
+    const classNames = getClassNames(styles.CancelButton, styles, props.size);
+    return (
+        <div className={classNames}>
+            <button
+                onClick={props.onClick}
+            >
+                <img alt={_icon_alt} src={cancelIcon}/>
+            </button>
+        </div>
+    );
 
-    constructor(props) {
-        super(props);
-        this.onClick = this.onClick.bind(this);
-    }
-
-    onClick() {
-        this.props.onClick();
-    }
-
-    render() {
-        const classNames = getClassNames(styles.CancelButton, styles, this.props.size);
-        return (
-            <div className={classNames}>
-                <button
-                    onClick={this.onClick}
-                >
-                    <img alt={this._icon_alt} src={cancelIcon}/>
-                </button>
-            </div>
-        );
-    }
 }
-
-export default RemoveButton;

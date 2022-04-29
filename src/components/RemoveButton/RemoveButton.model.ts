@@ -1,6 +1,6 @@
-import {ElementSize} from "../../utils/ElementSize";
+import {ElementSize} from "../../services/elementSize/elementSize.model";
 
-export interface CancelButtonProps {
+export type CancelButtonProps = {
     size?: ElementSize;
     onClick: () => void;
 }

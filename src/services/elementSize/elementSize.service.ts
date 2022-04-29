@@ -1,4 +1,4 @@
-import {ElementSize} from "./ElementSize";
+import {ElementSize} from "./elementSize.model";
 
 
 export function getClassNames(elementBaseClass, styles, elementSize?: ElementSize) {

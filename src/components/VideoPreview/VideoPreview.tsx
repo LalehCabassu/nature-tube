@@ -1,31 +1,22 @@
 import React from 'react';
 import styles from './VideoPreview.module.scss';
-import RemoveButton from "../RemoveButton/RemoveButton";
-import VideoPlayer from "../VideoPlayer/VideoPlayer";
 import {VideoPreviewProps} from "./VideoPreview.model";
+import {RemoveButton} from "../RemoveButton/RemoveButton";
+import {VideoPlayer} from "../VideoPlayer/VideoPlayer";
 
-export class VideoPreview extends React.Component<VideoPreviewProps, any> {
+export function VideoPreview(props: VideoPreviewProps) {
 
-    constructor(props) {
-        super(props);
-        this.onRemove = this.onRemove.bind(this);
+    function onRemove() {
+        props.onRemove(props.id);
     }
 
-    onRemove() {
-        this.props.onRemove(this.props.id);
-    }
-
-    render() {
-        return (
-            <div key={this.props.id} className={styles.VideoPreview}>
-                <RemoveButton onClick={this.onRemove}/>
-                <span>
-                        <p><strong>{this.props.title}</strong></p>
-                        <VideoPlayer size={this.props.size} uri={this.props.uri}/>
-                    </span>
-            </div>
-        );
-    }
+    return (
+        <div key={props.id} className={styles.VideoPreview}>
+            <RemoveButton onClick={onRemove}/>
+            <span>
+                <p><strong>{props.title}</strong></p>
+                <VideoPlayer size={props.size} uri={props.uri}/>
+            </span>
+        </div>
+    );
 }
-
-export default VideoPreview;

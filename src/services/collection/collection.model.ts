@@ -1,6 +1,6 @@
 const UNTITLED = 'Untitled';
 
-export interface CollectionContextModel {
+export interface CollectionModel {
     collections: Collection [],
     addCollection?: (collection: Collection) => {},
 }
@@ -12,10 +12,6 @@ export class Collection {
     constructor(title?: string) {
         this.title = title || UNTITLED;
         this.videos = [];
-    }
-
-    addVideo(video: Video) {
-        this.videos.push(video);
     }
 }
 
