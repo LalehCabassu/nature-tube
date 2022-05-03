@@ -1,6 +1,6 @@
-import {ElementSize} from "../../utils/ElementSize";
+import {ElementSize} from "../../services/elementSize/elementSize.model";
 
-export interface ButtonProps {
+export type ButtonProps = {
     label: string;
     size?: ElementSize;
     onClick: () => void;

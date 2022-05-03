@@ -1,39 +1,44 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './VideoPlayer.module.scss'
 import {VideoPlayerProps, VideoPlayerState} from "./VideoPlayer.model";
 import ReactPlayer from "react-player";
-import {ElementSize} from "../../utils/ElementSize";
+import {ElementSize} from "../../services/elementSize/elementSize.model";
 
-class VideoPlayer extends React.Component<VideoPlayerProps, VideoPlayerState> {
+export function VideoPlayer(props: VideoPlayerProps) {
 
-    private readonly _heightMargin = 180;
-    private readonly _widthMargin = 100;
+    const _heightMargin = 180;
+    const _widthMargin = 100;
+    const [playerDimension, setPlayerDimension] = useState<VideoPlayerState>(createState);
 
-    constructor(props: VideoPlayerProps) {
-        super(props);
-        this.state = this.createState();
-        this.setPlayerDimension();
-    }
-
-    componentDidMount() {
-        if (this.props.autoAdjustableSize) {
-            window.addEventListener('resize', this.setPlayerDimension);
+    function updatePlayerDimension() {
+        if (props.autoAdjustableSize) {
+            setPlayerDimension(createState());
         }
     }
 
-    calculateHeight() {
+    useEffect(() => {
+        if (props.autoAdjustableSize) {
+            window.addEventListener('resize', updatePlayerDimension);
+        }
+
+        return () => {
+            window.removeEventListener('resize', updatePlayerDimension);
+        }
+    },)
+
+    function calculateHeight() {
         const height = document.documentElement.clientHeight;
-        return height - this._heightMargin;
+        return height - _heightMargin;
     }
 
-    calculateWidth() {
+    function calculateWidth() {
         const width = document.body.clientWidth;
-        return width - this._widthMargin;
+        return width - _widthMargin;
     }
 
-    createState() {
+    function createState() {
         let height, width;
-        switch (this.props.size) {
+        switch (props.size) {
             case ElementSize.Small:
                 height = '50%';
                 width = '50%';
@@ -47,37 +52,27 @@ class VideoPlayer extends React.Component<VideoPlayerProps, VideoPlayerState> {
                 width = '100%';
                 break;
             default:
-                height = this.calculateHeight();
-                width = this.calculateWidth();
+                height = calculateHeight();
+                width = calculateWidth();
                 break;
         }
         return {
             playerHeight: height,
             playerWidth: width
-        };
+        } as VideoPlayerState;
     }
 
-    setPlayerDimension = () => {
-        if (this.props.autoAdjustableSize) {
-            this.setState(this.createState());
-        }
-    }
-
-    render() {
-        return (
-            <div className={styles.Main}>
-                <ReactPlayer className={styles.Player}
-                             url={this.props.uri}
-                             height={this.state.playerHeight}
-                             width={this.state.playerWidth}
-                             controls
-                             playing={this.props.autoPlay ?? false}
-                             loop
-                             muted
-                />
-            </div>
-        );
-    }
+    return (
+        <div className={styles.Main}>
+            <ReactPlayer className={styles.Player}
+                         url={props.uri}
+                         height={playerDimension.playerHeight}
+                         width={playerDimension.playerWidth}
+                         controls
+                         playing={props.autoPlay ?? false}
+                         loop
+                         muted
+            />
+        </div>
+    );
 }
-
-export default VideoPlayer;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {Collection} from "../contexts/CollectionContext/CollectionContext.model";
+import {Collection} from "./collection.model";
 
 export class CollectionService {
 
@@ -27,5 +27,4 @@ export class CollectionService {
                 console.error(error);
             });
     }
-
 }

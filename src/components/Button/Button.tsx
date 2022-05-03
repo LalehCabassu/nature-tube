@@ -1,33 +1,20 @@
 import React from 'react';
 import {ButtonProps} from "./Button.model";
-import {getClassNames} from "../../utils/utils";
+import {getClassNames} from "../../services/elementSize/elementSize.service";
 import styles from './Button.module.scss';
 
+export function Button(props: ButtonProps) {
 
-class Button extends React.Component<ButtonProps, any> {
+    const classNames = getClassNames(styles.Button, styles, props.size);
 
-    constructor(props) {
-        super(props);
-        this.onClick = this.onClick.bind(this);
-    }
-
-    onClick() {
-        this.props.onClick();
-    }
-
-    render() {
-        const classNames = getClassNames(styles.Button, styles, this.props.size);
-        return (
-            <div className={classNames}>
-                <button
-                    type="submit"
-                    onClick={this.onClick}
-                >
-                    {this.props.label}
-                </button>
-            </div>
-        );
-    }
+    return (
+        <div className={classNames}>
+            <button
+                type="submit"
+                onClick={props.onClick}
+            >
+                {props.label}
+            </button>
+        </div>
+    );
 }
-
-export default Button;
