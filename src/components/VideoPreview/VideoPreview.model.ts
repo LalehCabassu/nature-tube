@@ -1,6 +1,6 @@
 import {ElementSize} from "../../services/elementSize/elementSize.model";
 
-export interface VideoPreviewProps {
+export type VideoPreviewProps = {
     id: string;
     title: string;
     uri: string;

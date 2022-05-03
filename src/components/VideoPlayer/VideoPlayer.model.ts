@@ -1,13 +1,13 @@
 import {ElementSize} from "../../services/elementSize/elementSize.model";
 
-export interface VideoPlayerProps {
+export type VideoPlayerProps = {
     uri: string;
     size?: ElementSize;
     autoAdjustableSize?: boolean;
     autoPlay?: boolean;
 }
 
-export interface VideoPlayerState {
+export type VideoPlayerState = {
     playerHeight: number | string;
     playerWidth: number | string;
 }

@@ -1,10 +1,5 @@
 const UNTITLED = 'Untitled';
 
-export interface CollectionModel {
-    collections: Collection [],
-    addCollection?: (collection: Collection) => {},
-}
-
 export class Collection {
     title?: string;
     videos: Video[];

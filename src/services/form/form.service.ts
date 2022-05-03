@@ -9,7 +9,7 @@ export class FormService {
         this.resetForm = new BehaviorSubject<boolean>(false);
     }
 
-    public static get Instance() {
+    public static get Instance(): FormService {
         if (!this._instance) {
             this._instance = new FormService();
         }
