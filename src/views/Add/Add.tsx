@@ -4,7 +4,7 @@ import {Tab} from "./Add.model";
 import {ElementSize} from "../../services/elementSize/elementSize.model";
 import {FormService} from "../../services/form/form.service";
 import {ROUTES} from "../../App.model";
-import {Redirect} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {CollectionService} from "../../services/collection/collection.service";
 import {VideoPreview} from "../../components/VideoPreview/VideoPreview";
 import {TextInput} from "../../components/TextInput/TextInput";
@@ -180,6 +180,6 @@ export function Add() {
         </div>
     );
 
-    return redirect ? <Redirect to={ROUTES.pick}/> : contentToRender;
+    return redirect ? <Navigate to={ROUTES.pick}/> : contentToRender;
 
 }

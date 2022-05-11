@@ -1,12 +1,11 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Add from './Add';
+import {Add} from "./Add";
 
 describe('<Add />', () => {
     test('it should mount', () => {
-        render(<Add onSave={() => {
-        }}/>);
+        render(<Add/>);
 
         const add = screen.getByTestId('Add');
 

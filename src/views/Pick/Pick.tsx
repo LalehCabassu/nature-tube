@@ -23,7 +23,7 @@ export function Pick() {
             <div className={styles.Pick} data-testid="Pick">
                 Pick Component is loading
             </div> : <div><h1>Collections</h1>
-                <div>{collections}</div>
+                <div>{collections.map(collection => collection.title)}</div>
             </div>
     );
 }

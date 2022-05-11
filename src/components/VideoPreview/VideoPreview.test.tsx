@@ -1,7 +1,7 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import VideoPreview from './VideoPreview';
+import {VideoPreview} from './VideoPreview';
 import {ElementSize} from "../../services/elementSize/elementSize.model";
 
 describe('<VideoPreview />', () => {

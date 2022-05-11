@@ -1,7 +1,7 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Play from './Play';
+import {Play} from './Play';
 
 describe('<Play />', () => {
     test('it should mount', () => {
