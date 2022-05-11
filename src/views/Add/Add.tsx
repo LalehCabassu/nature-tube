@@ -5,11 +5,12 @@ import {ElementSize} from "../../services/elementSize/elementSize.model";
 import {FormService} from "../../services/form/form.service";
 import {ROUTES} from "../../App.model";
 import {Navigate} from "react-router-dom";
-import {CollectionService} from "../../services/collection/collection.service";
 import {VideoPreview} from "../../components/VideoPreview/VideoPreview";
 import {TextInput} from "../../components/TextInput/TextInput";
 import {Button} from "../../components/Button/Button";
 import {Collection, Video} from "../../services/collection/collection.model";
+import {useDispatch} from "react-redux";
+import {add} from "../../stores/collection/collectionsSlice";
 
 export function Add() {
 
@@ -23,7 +24,6 @@ export function Add() {
     const _saveButtonLabel = 'Save';
 
     const formService = FormService.Instance;
-    const collectionService = CollectionService.Instance;
     const collection = new Collection();
 
     const [tab, setTab] = useState<Tab>(Tab.Uri);
@@ -31,6 +31,8 @@ export function Add() {
     const [redirect, setRedirect] = useState<boolean>(false);
     const [videos, setVideos] = useState<Video[]>([]);
     const [video, setVideo] = useState<Video>(new Video());
+
+    const dispatch = useDispatch();
 
     function generatePreviewVideos() {
         const videoPlayers: JSX.Element[] = [];
@@ -66,7 +68,7 @@ export function Add() {
 
     function handleSave() {
         collection.videos = videos;
-        collectionService.add(collection);
+        dispatch(add(collection));
         setRedirect(true);
     }
 
