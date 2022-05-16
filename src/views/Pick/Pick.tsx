@@ -1,32 +1,26 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styles from './Pick.module.scss';
+import {useGetCollectionsQuery} from "../../services/collection/collection.service";
+import {useSelector} from "react-redux";
+import {CollectionsState, collections} from "../../stores/collection/collectionsSlice";
 import {Collection} from "../../services/collection/collection.model";
-import {useDispatch, useSelector} from "react-redux";
-import {CollectionsState, getAll, selectCollections} from "../../stores/collection/collectionsSlice";
 
 export function Pick() {
 
-    const [collections, setCollections] = useState<Collection[]>([]);
-    const [isLoading, setLoading] = useState<boolean>(true);
-    const dispatch = useDispatch();
+    const collectionsInState = useSelector<CollectionsState, Collection[]>(collections);
+    const {data: collectionsFromApi, isLoading} = useGetCollectionsQuery();
 
-    const collectionsState = useSelector<CollectionsState, Collection[]>(selectCollections);
-
-    useEffect(() => {
-        if (!collections.length) {
-            dispatch(getAll());
-            setCollections(collectionsState);
-            setLoading(false);
-        }
-    }, collectionsState);
-
-    return (isLoading ?
-            <div className={styles.Pick} data-testid="Pick">
-                Pick Component is loading
-            </div> : <div><h1>Collections</h1>
-                {collections.map(collection => {
-                    return <div>{collection.title} </div>;
-                })}
-            </div>
+    return (
+        <div className={styles.Pick} data-testid="Pick">
+            <h1>Collections</h1>
+            <h2>From API</h2>
+            {isLoading ? <div>Loading...</div> : collectionsFromApi?.map(collection => {
+                return <div>{collection.title} </div>;
+            })}
+            <h2>In State</h2>
+            {collectionsInState.map(collection => {
+                return <div>{collection.title} </div>;
+            })}
+        </div>
     );
 }

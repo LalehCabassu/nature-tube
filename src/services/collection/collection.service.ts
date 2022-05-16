@@ -1,35 +1,53 @@
-import axios from 'axios';
+import {BaseQueryFn} from "@reduxjs/toolkit/query";
+import {createApi} from "@reduxjs/toolkit/query/react";
+import axios, {AxiosError, AxiosRequestConfig} from "axios";
 import {Collection} from "./collection.model";
 
-export class CollectionService {
-
-    private static readonly _addCollectionsEndpoint = '/collection'
-    private static readonly _getAllCollectionsEndpoint = '/collections'
-    private static _instance;
-
-    private constructor() {
-        axios.defaults.baseURL = 'http://localhost:8080';
-    }
-
-    public static get Instance(): CollectionService {
-        if (!this._instance) {
-            this._instance = new CollectionService();
+const axiosBaseQuery =
+    (
+        {baseUrl}: { baseUrl: string } = {baseUrl: ''}
+    ): BaseQueryFn<{
+        url: string
+        method: AxiosRequestConfig['method']
+        data?: AxiosRequestConfig['data']
+        params?: AxiosRequestConfig['params']
+    },
+        unknown,
+        unknown> =>
+        async ({url, method, data, params}) => {
+            try {
+                const result = await axios({url: baseUrl + url, method, data, params})
+                return {data: result.data}
+            } catch (axiosError) {
+                let err = axiosError as AxiosError
+                return {
+                    error: {
+                        status: err.response?.status,
+                        data: err.response?.data || err.message,
+                    },
+                }
+            }
         }
-        return this._instance;
-    }
 
-    add(collection: Collection): Promise<any> {
-        return axios.post(
-            CollectionService._addCollectionsEndpoint,
-            collection
-        )
-            .then(response => response.status)
-            .catch(error => {
-                console.error(error);
-            });
-    }
+export const collectionApi = createApi({
+    reducerPath: 'api',
+    baseQuery: axiosBaseQuery({baseUrl: 'http://localhost:8080'}),
+    tagTypes: ['Collection'],
+    endpoints: (builder) => ({
+        getCollections: builder.query<Collection[], void>({
+            query: () => ({
+                url: '/collections',
+                method: 'get'
+            })
+        }),
+        addCollection: builder.mutation<Collection, Partial<Collection>>({
+            query: (collection) => ({
+                url: '/collection',
+                method: 'post',
+                body: collection
+            })
+        })
+    })
+});
 
-    getAll(): Promise<Collection[]> {
-        return axios.get(CollectionService._getAllCollectionsEndpoint);
-    }
-}
+export const {useGetCollectionsQuery, useAddCollectionMutation} = collectionApi;

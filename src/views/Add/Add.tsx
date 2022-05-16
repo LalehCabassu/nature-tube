@@ -10,6 +10,7 @@ import {TextInput} from "../../components/TextInput/TextInput";
 import {Button} from "../../components/Button/Button";
 import {Collection, Video} from "../../services/collection/collection.model";
 import {useDispatch} from "react-redux";
+import {useAddCollectionMutation} from "../../services/collection/collection.service";
 import {add} from "../../stores/collection/collectionsSlice";
 
 export function Add() {
@@ -33,6 +34,7 @@ export function Add() {
     const [video, setVideo] = useState<Video>(new Video());
 
     const dispatch = useDispatch();
+    const [addCollection] = useAddCollectionMutation();
 
     function generatePreviewVideos() {
         const videoPlayers: JSX.Element[] = [];
@@ -66,9 +68,14 @@ export function Add() {
         collection.title = collectionTitle;
     }
 
-    function handleSave() {
+    function HandleSave() {
         collection.videos = videos;
+
+        // add to the redux store
         dispatch(add(collection));
+        // call api using rtk query
+        addCollection(collection);
+
         setRedirect(true);
     }
 
@@ -176,7 +183,7 @@ export function Add() {
                 <Button
                     label={_saveButtonLabel}
                     size={ElementSize.Medium}
-                    onClick={handleSave}
+                    onClick={HandleSave}
                 />
             </div>
         </div>
