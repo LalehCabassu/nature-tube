@@ -31,20 +31,19 @@ const axiosBaseQuery =
 
 export const collectionApi = createApi({
     reducerPath: 'api',
-    baseQuery: axiosBaseQuery({baseUrl: 'http://localhost:8080'}),
-    tagTypes: ['Collection'],
+    baseQuery: axiosBaseQuery({baseUrl: 'http://localhost:8080/'}),
     endpoints: (builder) => ({
         getCollections: builder.query<Collection[], void>({
             query: () => ({
-                url: '/collections',
-                method: 'get'
+                url: 'collections',
+                method: 'GET'
             })
         }),
         addCollection: builder.mutation<Collection, Partial<Collection>>({
             query: (collection) => ({
-                url: '/collection',
-                method: 'post',
-                body: collection
+                url: 'collection',
+                method: 'POST',
+                data: collection
             })
         })
     })
